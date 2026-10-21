@@ -30,24 +30,33 @@
       padding: 0;
     }
 
-    /* Container Khas Untuk Skrin Telefon & Dekstop */
     .app-container {
-      max-width: 500px;
+      max-width: 600px;
       margin: 0 auto;
       padding: 10px 8px;
     }
 
-    /* Header App */
+    /* Header App (Tajuk Sekolah 1 Baris) */
     .app-header {
       background: linear-gradient(135deg, var(--dark-blue), var(--navy-blue));
       color: white;
-      padding: 16px 12px 12px 12px;
+      padding: 16px 10px 12px 10px;
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       margin-bottom: 15px;
+      overflow: hidden;
     }
 
-    /* Navigation Tabs Disimpan Kemas Dalam 1 Baris */
+    .header-single-line {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: clamp(0.9rem, 3.8vw, 1.25rem);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    /* Navigation Tabs */
     .nav-tabs-custom {
       display: flex;
       gap: 6px;
@@ -64,10 +73,10 @@
       padding: 8px 4px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.75rem; /* Dikecilkan saiz teks */
+      font-size: 0.75rem;
       text-align: center;
       flex: 1;
-      min-width: 0; /* Mengelakkan butang melimpah keluar */
+      min-width: 0;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
       transition: all 0.2s ease;
       cursor: pointer;
@@ -83,8 +92,27 @@
 
     .nav-card-btn i {
       display: block;
-      font-size: 1.1rem; /* Dikecilkan saiz ikon */
+      font-size: 1.1rem;
       margin-bottom: 3px;
+    }
+
+    /* Gaya Butang Khas (Pill Shape) Seperti Tambah Tuntutan */
+    .btn-pill-blue {
+      background-color: var(--dark-blue);
+      color: white;
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: 2px solid #2B6CB0;
+      box-shadow: 0 2px 6px rgba(15, 44, 89, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .btn-pill-blue:hover {
+      background-color: var(--navy-blue);
+      color: white;
+      transform: translateY(-1px);
     }
 
     /* Dashboard & Cards */
@@ -140,24 +168,28 @@
       background-color: var(--dark-blue);
       color: white;
       text-align: center;
-      padding: 10px 8px;
-      font-size: 0.82rem;
+      padding: 10px 6px;
+      font-size: 0.8rem;
       border: 1px solid #2D3748;
     }
 
     .table-custom td {
-      padding: 8px 10px;
+      padding: 8px 6px;
       border: 1px solid #E2E8F0;
       vertical-align: middle;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
     }
 
     .table-custom tr:nth-child(even) {
       background-color: #F7FAFC;
     }
 
-    /* Cetak Template Layout */
+    /* Format Cetakan A4 (1 Muka Surat) */
     @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm 10mm 10mm 10mm;
+      }
       body * {
         visibility: hidden;
       }
@@ -169,6 +201,8 @@
         left: 0;
         top: 0;
         width: 100%;
+        box-shadow: none !important;
+        padding: 0 !important;
       }
       .no-print {
         display: none !important;
@@ -188,20 +222,21 @@
     .print-header {
       text-align: center;
       font-weight: bold;
-      line-height: 1.4;
-      margin-bottom: 15px;
+      line-height: 1.3;
+      margin-bottom: 12px;
     }
 
     .print-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 12px 0;
+      margin: 10px 0;
     }
 
     .print-table th, .print-table td {
       border: 1px solid #000;
-      padding: 6px 8px;
+      padding: 4px 6px; /* Padding dipadatkan untuk muat 1 muka surat */
       font-size: 0.8rem;
+      height: 22px;
     }
 
     .print-table th {
@@ -210,7 +245,7 @@
     }
 
     .signature-section {
-      margin-top: 40px;
+      margin-top: 30px;
       display: flex;
       justify-content: space-between;
     }
@@ -221,7 +256,7 @@
     }
 
     .sig-line {
-      margin-top: 50px;
+      margin-top: 45px;
       border-bottom: 1px dotted #000;
       width: 85%;
     }
@@ -231,12 +266,12 @@
 
 <div class="app-container">
   
-  <!-- Header App -->
+  <!-- Header App (Satu Baris) -->
   <div class="app-header text-center">
-    <h5 class="m-0 fw-bold" id="appHeaderTitle">SMU(A) KHAIRIAH BANGGOL SETOL</h5>
-    <p class="small text-white-50 m-0" style="font-size: 0.8rem;">Sistem Rekod Tuntutan Sekolah</p>
+    <h5 class="header-single-line" id="appHeaderTitle">SMU(A) KHAIRIAH BANGGOL SETOL</h5>
+    <p class="small text-white-50 m-0" style="font-size: 0.78rem;">Sistem Rekod Tuntutan Sekolah</p>
     
-    <!-- Navigation Tabs (Kemas & Muat Pada Telefon) -->
+    <!-- Navigation Tabs -->
     <div class="nav-tabs-custom no-print">
       <div class="nav-card-btn active" onclick="switchTab('utama')" id="btn-utama">
         <i class="fas fa-chart-pie"></i>
@@ -289,7 +324,7 @@
   <div id="tab-senarai" class="tab-content d-none">
     <div class="d-flex justify-content-between align-items-center mb-2">
       <h6 class="fw-bold m-0 text-navy fs-6"><i class="fas fa-table me-1"></i>Rekod Tuntutan</h6>
-      <button class="btn btn-primary btn-sm rounded-pill px-3" style="background-color: var(--dark-blue); font-size: 0.78rem;" onclick="openAddModal()">
+      <button class="btn btn-pill-blue" onclick="openAddModal()">
         <i class="fas fa-plus me-1"></i> Tambah Tuntutan
       </button>
     </div>
@@ -302,15 +337,16 @@
         <table class="table table-custom">
           <thead>
             <tr>
-              <th style="width: 12%;">Bil</th>
-              <th style="width: 44%;">Perkara</th>
-              <th style="width: 24%;">Tempat</th>
-              <th style="width: 20%;">Tarikh</th>
+              <th style="width: 8%;">Bil</th>
+              <th style="width: 40%;">Perkara</th>
+              <th style="width: 20%;">Tempat</th>
+              <th style="width: 18%;">Tarikh</th>
+              <th style="width: 14%;">Tindakan</th>
             </tr>
           </thead>
           <tbody id="claimTableBody">
             <tr>
-              <td colspan="4" class="text-center text-muted">Memuatkan data...</td>
+              <td colspan="5" class="text-center text-muted">Memuatkan data...</td>
             </tr>
           </tbody>
         </table>
@@ -320,8 +356,9 @@
 
   <!-- TAB 3: CETAK TUNTUTAN -->
   <div id="tab-cetak" class="tab-content d-none">
-    <div class="no-print mb-2 text-end">
-      <button class="btn btn-success btn-sm px-3" onclick="window.print()">
+    <div class="no-print mb-3 text-end">
+      <!-- Butang Cetak Mengikut Bentuk Tambah Tuntutan -->
+      <button class="btn btn-pill-blue" onclick="window.print()">
         <i class="fas fa-print me-1"></i> Cetak Dokumen Ini
       </button>
     </div>
@@ -330,11 +367,11 @@
       <div class="print-header">
         <span id="printSchoolTitle">SMU (A) KHAIRIAH BANGGOL SETOL</span><br>
         <span id="printSchoolSub">17070 PASIR MAS, KELANTAN</span><br>
-        <u>BORANG AKAUN RUNCIT</u><br><br>
-        TUNTUTAN PERBELANJAAN / PERJALANAN
+        <u style="font-size: 0.95rem;">BORANG AKAUN RUNCIT</u><br><br>
+        <span style="font-size: 0.9rem;">TUNTUTAN PERBELANJAAN / PERJALANAN</span>
       </div>
 
-      <p style="font-size: 0.85rem; line-height: 1.5;">
+      <p style="font-size: 0.82rem; line-height: 1.4; margin-bottom: 8px;">
         Saya <b id="printNamaPemohon">ASRI B MOHD ZAIN</b> NO KP : <b id="printKpPemohon">A 1778358</b><br>
         telah membelanjakan wang saya sendiri bagi tujuan perjalanan / membeli keperluan / peralatan / untuk urusan sekolah seperti berikut :
       </p>
@@ -349,23 +386,23 @@
           </tr>
         </thead>
         <tbody id="printTableBody">
-          <!-- 20 Baris Printable -->
+          <!-- Minimum 15 Baris (Automatik bertambah jika data > 15) -->
         </tbody>
       </table>
 
       <div class="signature-section">
         <div class="sig-box">
-          <p style="font-size: 0.85rem; margin-bottom: 0;">Disemak oleh,</p>
+          <p style="font-size: 0.82rem; margin-bottom: 0;">Disemak oleh,</p>
           <div class="sig-line"></div>
-          <p class="mt-2 mb-0" style="font-size: 0.85rem;"><b>(BENDAHARI)</b></p>
-          <p id="printSchoolSig1" style="font-size: 0.8rem;">SMU(A) Khairiah Banggol Setol</p>
+          <p class="mt-2 mb-0" style="font-size: 0.82rem;"><b>(BENDAHARI)</b></p>
+          <p id="printSchoolSig1" style="font-size: 0.78rem;">SMU(A) Khairiah Banggol Setol</p>
         </div>
 
         <div class="sig-box">
-          <p style="font-size: 0.85rem; margin-bottom: 0;">Disahkan oleh,</p>
+          <p style="font-size: 0.82rem; margin-bottom: 0;">Disahkan oleh,</p>
           <div class="sig-line"></div>
-          <p class="mt-2 mb-0" style="font-size: 0.85rem;"><b>(PENGETUA)</b></p>
-          <p id="printSchoolSig2" style="font-size: 0.8rem;">SMU(A) Khairiah Banggol Setol</p>
+          <p class="mt-2 mb-0" style="font-size: 0.82rem;"><b>(PENGETUA)</b></p>
+          <p id="printSchoolSig2" style="font-size: 0.78rem;">SMU(A) Khairiah Banggol Setol</p>
         </div>
       </div>
     </div>
@@ -403,20 +440,37 @@
         </button>
       </div>
     </div>
+
+    <!-- Modul Pengurusan Rekod / Hapus Dalam Tetapan -->
+    <div class="card border-0 shadow-sm mb-3 border-danger">
+      <div class="card-body p-3">
+        <h6 class="fw-bold text-danger mb-2 fs-6"><i class="fas fa-database me-1"></i>Pengurusan Data Rekod</h6>
+        <p class="small text-muted mb-2">Urus atau padam semua rekod tuntutan tersimpan.</p>
+        <div class="d-grid gap-2">
+          <button class="btn btn-outline-primary btn-sm" onclick="switchTab('senarai')">
+            <i class="fas fa-edit me-1"></i> Kemaskini Rekod Tuntutan
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="hapusSemuaData()">
+            <i class="fas fa-trash-alt me-1"></i> Hapus Semua Rekod Tuntutan
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
 
-<!-- Modal Tambah Tuntutan -->
+<!-- Modal Tambah / Edit Tuntutan -->
 <div class="modal fade" id="addModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header text-white" style="background-color: var(--dark-blue); padding: 12px 16px;">
-        <h6 class="modal-title fw-bold fs-6 m-0"><i class="fas fa-file-signature me-2"></i>Tambah Rekod Tuntutan</h6>
+        <h6 class="modal-title fw-bold fs-6 m-0" id="modalTitle"><i class="fas fa-file-signature me-2"></i>Tambah Rekod Tuntutan</h6>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body p-3">
         <form id="claimForm">
+          <input type="hidden" id="editDocId" value="">
           <div class="mb-3">
             <label class="form-label fw-bold small"><i class="fas fa-edit text-primary me-1"></i> Perkara</label>
             <input type="text" id="inputPerkara" class="form-control form-control-sm" placeholder="Isi nama perkara" required>
@@ -513,6 +567,8 @@
   }
 
   function openAddModal() {
+    document.getElementById('editDocId').value = '';
+    document.getElementById('modalTitle').innerHTML = `<i class="fas fa-file-signature me-2"></i>Tambah Rekod Tuntutan`;
     document.getElementById('claimForm').reset();
     document.getElementById('inputLain').style.display = 'none';
     modalInstance.show();
@@ -532,13 +588,13 @@
     });
   }
 
-  // Render Table
+  // Render Table Senarai Tuntutan
   function renderTable() {
     const tbody = document.getElementById('claimTableBody');
     tbody.innerHTML = '';
 
     if (claimsData.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted">Tiada rekod tuntutan dijumpai.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Tiada rekod tuntutan dijumpai.</td></tr>`;
       return;
     }
 
@@ -550,6 +606,14 @@
         <td>${item.perkara}</td>
         <td>${item.tempat}</td>
         <td class="text-center">${formattedDate}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-outline-primary p-1 px-2 me-1" onclick="editItem('${item.id}')" title="Kemaskini">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger p-1 px-2" onclick="deleteItem('${item.id}')" title="Hapus">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
       `;
       tbody.appendChild(tr);
     });
@@ -580,8 +644,9 @@
     document.getElementById('statDestinasiUtama').innerText = maxTempat;
   }
 
-  // Simpan Data Tuntutan Ke Firebase
+  // Simpan / Kemaskini Data Tuntutan
   function simpanTuntutan() {
+    const docId = document.getElementById('editDocId').value;
     const perkara = document.getElementById('inputPerkara').value.trim();
     const tarikh = document.getElementById('inputTarikh').value;
     
@@ -599,32 +664,133 @@
     btn.disabled = true;
     btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menyimpan...`;
 
-    db.collection("tuntutan").add({
+    const payload = {
       perkara: perkara,
       tempat: selectedTempat,
       tarikh: tarikh,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    .then(() => {
-      btn.disabled = false;
-      btn.innerHTML = `Simpan Data`;
-      modalInstance.hide();
-      Swal.fire('Berjaya!', 'Data tuntutan telah disimpan.', 'success');
-    })
-    .catch((error) => {
-      btn.disabled = false;
-      btn.innerHTML = `Simpan Data`;
-      Swal.fire('Ralat!', error.message, 'error');
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    if (docId) {
+      // Mod Kemaskini
+      db.collection("tuntutan").doc(docId).update(payload)
+      .then(() => {
+        btn.disabled = false;
+        btn.innerHTML = `Simpan Data`;
+        modalInstance.hide();
+        Swal.fire('Berjaya!', 'Rekod tuntutan telah dikemaskini.', 'success');
+      })
+      .catch((error) => {
+        btn.disabled = false;
+        btn.innerHTML = `Simpan Data`;
+        Swal.fire('Ralat!', error.message, 'error');
+      });
+    } else {
+      // Mod Tambah Baru
+      payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+      db.collection("tuntutan").add(payload)
+      .then(() => {
+        btn.disabled = false;
+        btn.innerHTML = `Simpan Data`;
+        modalInstance.hide();
+        Swal.fire('Berjaya!', 'Data tuntutan baru telah disimpan.', 'success');
+      })
+      .catch((error) => {
+        btn.disabled = false;
+        btn.innerHTML = `Simpan Data`;
+        Swal.fire('Ralat!', error.message, 'error');
+      });
+    }
+  }
+
+  // Edit Single Item
+  function editItem(id) {
+    const item = claimsData.find(c => c.id === id);
+    if (!item) return;
+
+    document.getElementById('editDocId').value = item.id;
+    document.getElementById('modalTitle').innerHTML = `<i class="fas fa-pencil-alt me-2"></i>Kemaskini Rekod Tuntutan`;
+    document.getElementById('inputPerkara').value = item.perkara;
+    document.getElementById('inputTarikh').value = item.tarikh;
+
+    if (['YIK', 'SUK', 'JPN'].includes(item.tempat)) {
+      document.querySelector(`input[name="tempatOpt"][value="${item.tempat}"]`).checked = true;
+      toggleLain(false);
+    } else {
+      document.getElementById('optLain').checked = true;
+      toggleLain(true);
+      document.getElementById('inputLain').value = item.tempat;
+    }
+
+    modalInstance.show();
+  }
+
+  // Padam Single Item dengan Pengesahan
+  function deleteItem(id) {
+    Swal.fire({
+      title: 'Adakah anda pasti?',
+      text: "Rekod ini akan dihapuskan daripada pangkalan data!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Ya, Hapus!',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        db.collection("tuntutan").doc(id).delete()
+        .then(() => {
+          Swal.fire('Dihapuskan!', 'Rekod telah berjaya dipadam.', 'success');
+        })
+        .catch(error => {
+          Swal.fire('Ralat!', error.message, 'error');
+        });
+      }
     });
   }
 
-  // Render Cetak View
+  // Padam Semua Rekod dalam Tetapan
+  function hapusSemuaData() {
+    if (claimsData.length === 0) {
+      Swal.fire('Tiada Data', 'Tiada rekod untuk dihapuskan.', 'info');
+      return;
+    }
+
+    Swal.fire({
+      title: 'AMARAN!',
+      text: `Adakah anda benar-benar ingin menghapuskan KESEMUA ${claimsData.length} rekod tuntutan?`,
+      icon: 'error',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Ya, Hapus Semua!',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const batch = db.batch();
+        claimsData.forEach(item => {
+          const ref = db.collection("tuntutan").doc(item.id);
+          batch.delete(ref);
+        });
+
+        batch.commit().then(() => {
+          Swal.fire('Berjaya!', 'Semua rekod tuntutan telah dihapuskan.', 'success');
+        }).catch(error => {
+          Swal.fire('Ralat!', error.message, 'error');
+        });
+      }
+    });
+  }
+
+  // Render Cetak View (Had Minimum 15 Baris untuk 1 Muka Surat)
   function renderPrintView() {
     const tbody = document.getElementById('printTableBody');
     tbody.innerHTML = '';
 
-    const maxRows = 20; 
-    for (let i = 0; i < maxRows; i++) {
+    // Set minima 15 baris. Jika data melebihi 15, jadual automatik bertambah ikut bilangan data.
+    const rowCount = Math.max(15, claimsData.length);
+
+    for (let i = 0; i < rowCount; i++) {
       const item = claimsData[i];
       const tr = document.createElement('tr');
       if (item) {
@@ -646,7 +812,7 @@
     }
   }
 
-  // Pengurusan Tetapan
+  // Pengurusan Tetapan Profil & Sekolah
   function saveSettings() {
     const nama = document.getElementById('settingNama').value;
     const kp = document.getElementById('settingKp').value;
@@ -683,7 +849,7 @@
     document.getElementById('printSchoolSig2').innerText = sekolah;
   }
 
-  // Helper Tarikh Display
+  // Helper Formatter Tarikh
   function formatDateDisplay(dateStr) {
     if(!dateStr) return '';
     const parts = dateStr.split('-');
