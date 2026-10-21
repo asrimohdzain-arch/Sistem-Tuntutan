@@ -30,74 +30,86 @@
       padding: 0;
     }
 
-    /* Sidebar Navigation Layout */
+    /* Container Khas Untuk Skrin Telefon & Dekstop */
+    .app-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 10px 8px;
+    }
+
+    /* Header App */
     .app-header {
       background: linear-gradient(135deg, var(--dark-blue), var(--navy-blue));
       color: white;
-      padding: 15px 20px;
-      border-radius: 0 0 15px 15px;
+      padding: 16px 12px 12px 12px;
+      border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
+    /* Navigation Tabs Disimpan Kemas Dalam 1 Baris */
     .nav-tabs-custom {
       display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 15px;
+      gap: 6px;
+      justify-content: space-between;
+      margin-top: 12px;
+      width: 100%;
     }
 
     .nav-card-btn {
       background: white;
       color: var(--dark-blue);
       border: 1px solid #E2E8F0;
-      border-radius: 12px;
-      padding: 12px 18px;
+      border-radius: 10px;
+      padding: 8px 4px;
       text-decoration: none;
       font-weight: 600;
+      font-size: 0.75rem; /* Dikecilkan saiz teks */
       text-align: center;
       flex: 1;
-      max-width: 140px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
+      min-width: 0; /* Mengelakkan butang melimpah keluar */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     .nav-card-btn.active, .nav-card-btn:hover {
       background: var(--dark-blue);
       color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(15, 44, 89, 0.3);
+      border-color: var(--dark-blue);
+      box-shadow: 0 3px 8px rgba(15, 44, 89, 0.3);
     }
 
     .nav-card-btn i {
       display: block;
-      font-size: 1.4rem;
-      margin-bottom: 4px;
+      font-size: 1.1rem; /* Dikecilkan saiz ikon */
+      margin-bottom: 3px;
     }
 
     /* Dashboard & Cards */
     .stat-card {
       background: white;
       border-radius: 12px;
-      padding: 20px;
+      padding: 16px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       border-left: 5px solid var(--accent-blue);
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .stat-card h6 {
       color: #718096;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .stat-card h2 {
       color: var(--dark-blue);
       font-weight: 700;
       margin: 0;
+      font-size: 1.6rem;
     }
 
     /* Table Design */
@@ -106,15 +118,15 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
     .table-title {
       background-color: var(--navy-blue);
       color: white;
-      padding: 12px 18px;
+      padding: 10px 14px;
       font-weight: bold;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       border-left: 4px solid #4299E1;
     }
 
@@ -128,23 +140,23 @@
       background-color: var(--dark-blue);
       color: white;
       text-align: center;
-      padding: 12px;
-      font-size: 0.9rem;
+      padding: 10px 8px;
+      font-size: 0.82rem;
       border: 1px solid #2D3748;
     }
 
     .table-custom td {
-      padding: 10px 12px;
+      padding: 8px 10px;
       border: 1px solid #E2E8F0;
       vertical-align: middle;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .table-custom tr:nth-child(even) {
       background-color: #F7FAFC;
     }
 
-    /* Print Template Layout */
+    /* Cetak Template Layout */
     @media print {
       body * {
         visibility: hidden;
@@ -165,7 +177,7 @@
 
     .print-paper {
       background: white;
-      padding: 30px;
+      padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       max-width: 800px;
@@ -177,19 +189,19 @@
       text-align: center;
       font-weight: bold;
       line-height: 1.4;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .print-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 15px 0;
+      margin: 12px 0;
     }
 
     .print-table th, .print-table td {
       border: 1px solid #000;
-      padding: 8px;
-      font-size: 0.85rem;
+      padding: 6px 8px;
+      font-size: 0.8rem;
     }
 
     .print-table th {
@@ -198,7 +210,7 @@
     }
 
     .signature-section {
-      margin-top: 50px;
+      margin-top: 40px;
       display: flex;
       justify-content: space-between;
     }
@@ -209,22 +221,22 @@
     }
 
     .sig-line {
-      margin-top: 60px;
+      margin-top: 50px;
       border-bottom: 1px dotted #000;
-      width: 80%;
+      width: 85%;
     }
   </style>
 </head>
 <body>
 
-<div class="container max-w-lg px-2 py-2" style="max-width: 600px;">
+<div class="app-container">
   
   <!-- Header App -->
   <div class="app-header text-center">
-    <h4 class="m-0 fw-bold" id="appHeaderTitle">SMU(A) KHAIRIAH BANGGOL SETOL</h4>
-    <p class="small text-white-50 m-0">Sistem Rekod Tuntutan Sekolah</p>
+    <h5 class="m-0 fw-bold" id="appHeaderTitle">SMU(A) KHAIRIAH BANGGOL SETOL</h5>
+    <p class="small text-white-50 m-0" style="font-size: 0.8rem;">Sistem Rekod Tuntutan Sekolah</p>
     
-    <!-- Navigation Tabs -->
+    <!-- Navigation Tabs (Kemas & Muat Pada Telefon) -->
     <div class="nav-tabs-custom no-print">
       <div class="nav-card-btn active" onclick="switchTab('utama')" id="btn-utama">
         <i class="fas fa-chart-pie"></i>
@@ -248,14 +260,14 @@
   <!-- TAB 1: UTAMA (ANALISA) -->
   <div id="tab-utama" class="tab-content">
     <div class="card border-0 shadow-sm mb-3">
-      <div class="card-body bg-white rounded-3">
-        <h5 class="fw-bold text-dark mb-1" id="dashSchoolName">SMU(A) Khairiah Banggol Setol</h5>
-        <p class="text-muted small mb-2">Pengurusan Rekod Tuntutan Rasmi</p>
-        <span class="badge bg-primary px-3 py-2" id="currentDateBadge">-- Tarikh --</span>
+      <div class="card-body bg-white rounded-3 p-3">
+        <h6 class="fw-bold text-dark mb-1" id="dashSchoolName">SMU(A) Khairiah Banggol Setol</h6>
+        <p class="text-muted small mb-2" style="font-size: 0.8rem;">Pengurusan Rekod Tuntutan Rasmi</p>
+        <span class="badge bg-primary px-3 py-1" id="currentDateBadge" style="font-size: 0.75rem;">-- Tarikh --</span>
       </div>
     </div>
 
-    <h6 class="fw-bold text-navy mb-3"><i class="fas fa-chart-line me-2"></i>Analisa Rekod Tuntutan</h6>
+    <h6 class="fw-bold text-navy mb-2 fs-6"><i class="fas fa-chart-line me-1"></i>Analisa Rekod Tuntutan</h6>
     
     <div class="stat-card">
       <h6>Jumlah Rekod Tuntutan</h6>
@@ -269,15 +281,15 @@
 
     <div class="stat-card">
       <h6>Destinasi Utama (YIK/SUK/JPN)</h6>
-      <h2 id="statDestinasiUtama">-</h2>
+      <h2 id="statDestinasiUtama" style="font-size: 1.3rem;">-</h2>
     </div>
   </div>
 
   <!-- TAB 2: SENARAI TUNTUTAN -->
   <div id="tab-senarai" class="tab-content d-none">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h6 class="fw-bold m-0 text-navy"><i class="fas fa-table me-2"></i>Rekod Tuntutan</h6>
-      <button class="btn btn-primary btn-sm rounded-pill px-3" style="background-color: var(--dark-blue);" onclick="openAddModal()">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h6 class="fw-bold m-0 text-navy fs-6"><i class="fas fa-table me-1"></i>Rekod Tuntutan</h6>
+      <button class="btn btn-primary btn-sm rounded-pill px-3" style="background-color: var(--dark-blue); font-size: 0.78rem;" onclick="openAddModal()">
         <i class="fas fa-plus me-1"></i> Tambah Tuntutan
       </button>
     </div>
@@ -290,9 +302,9 @@
         <table class="table table-custom">
           <thead>
             <tr>
-              <th style="width: 10%;">Bil</th>
-              <th style="width: 45%;">Perkara</th>
-              <th style="width: 25%;">Tempat</th>
+              <th style="width: 12%;">Bil</th>
+              <th style="width: 44%;">Perkara</th>
+              <th style="width: 24%;">Tempat</th>
               <th style="width: 20%;">Tarikh</th>
             </tr>
           </thead>
@@ -308,8 +320,8 @@
 
   <!-- TAB 3: CETAK TUNTUTAN -->
   <div id="tab-cetak" class="tab-content d-none">
-    <div class="no-print mb-3 text-end">
-      <button class="btn btn-success" onclick="window.print()">
+    <div class="no-print mb-2 text-end">
+      <button class="btn btn-success btn-sm px-3" onclick="window.print()">
         <i class="fas fa-print me-1"></i> Cetak Dokumen Ini
       </button>
     </div>
@@ -322,7 +334,7 @@
         TUNTUTAN PERBELANJAAN / PERJALANAN
       </div>
 
-      <p style="font-size: 0.9rem; line-height: 1.6;">
+      <p style="font-size: 0.85rem; line-height: 1.5;">
         Saya <b id="printNamaPemohon">ASRI B MOHD ZAIN</b> NO KP : <b id="printKpPemohon">A 1778358</b><br>
         telah membelanjakan wang saya sendiri bagi tujuan perjalanan / membeli keperluan / peralatan / untuk urusan sekolah seperti berikut :
       </p>
@@ -337,23 +349,23 @@
           </tr>
         </thead>
         <tbody id="printTableBody">
-          <!-- Max 20 Rows Baris Borang Printed -->
+          <!-- 20 Baris Printable -->
         </tbody>
       </table>
 
       <div class="signature-section">
         <div class="sig-box">
-          <p>Disemak oleh,</p>
+          <p style="font-size: 0.85rem; margin-bottom: 0;">Disemak oleh,</p>
           <div class="sig-line"></div>
-          <p class="mt-2 mb-0"><b>(BENDAHARI)</b></p>
-          <p id="printSchoolSig1" style="font-size: 0.85rem;">SMU(A) Khairiah Banggol Setol</p>
+          <p class="mt-2 mb-0" style="font-size: 0.85rem;"><b>(BENDAHARI)</b></p>
+          <p id="printSchoolSig1" style="font-size: 0.8rem;">SMU(A) Khairiah Banggol Setol</p>
         </div>
 
         <div class="sig-box">
-          <p>Disahkan oleh,</p>
+          <p style="font-size: 0.85rem; margin-bottom: 0;">Disahkan oleh,</p>
           <div class="sig-line"></div>
-          <p class="mt-2 mb-0"><b>(PENGETUA)</b></p>
-          <p id="printSchoolSig2" style="font-size: 0.85rem;">SMU(A) Khairiah Banggol Setol</p>
+          <p class="mt-2 mb-0" style="font-size: 0.85rem;"><b>(PENGETUA)</b></p>
+          <p id="printSchoolSig2" style="font-size: 0.8rem;">SMU(A) Khairiah Banggol Setol</p>
         </div>
       </div>
     </div>
@@ -362,31 +374,31 @@
   <!-- TAB 4: TETAPAN -->
   <div id="tab-tetapan" class="tab-content d-none">
     <div class="card border-0 shadow-sm mb-3">
-      <div class="card-body">
-        <h6 class="fw-bold text-navy mb-3"><i class="fas fa-id-card me-2"></i>Maklumat Pemohon / Penuntut</h6>
-        <div class="mb-3">
-          <label class="form-label small fw-bold">Nama Penuh</label>
-          <input type="text" id="settingNama" class="form-control" value="ASRI B MOHD ZAIN">
+      <div class="card-body p-3">
+        <h6 class="fw-bold text-navy mb-2 fs-6"><i class="fas fa-id-card me-1"></i>Maklumat Pemohon / Penuntut</h6>
+        <div class="mb-2">
+          <label class="form-label small fw-bold mb-1">Nama Penuh</label>
+          <input type="text" id="settingNama" class="form-control form-control-sm" value="ASRI B MOHD ZAIN">
         </div>
-        <div class="mb-3">
-          <label class="form-label small fw-bold">No. Kad Pengenalan</label>
-          <input type="text" id="settingKp" class="form-control" value="A 1778358">
+        <div class="mb-2">
+          <label class="form-label small fw-bold mb-1">No. Kad Pengenalan</label>
+          <input type="text" id="settingKp" class="form-control form-control-sm" value="A 1778358">
         </div>
       </div>
     </div>
 
     <div class="card border-0 shadow-sm mb-3">
-      <div class="card-body">
-        <h6 class="fw-bold text-navy mb-3"><i class="fas fa-school me-2"></i>Maklumat Sekolah</h6>
-        <div class="mb-3">
-          <label class="form-label small fw-bold">Nama Sekolah</label>
-          <input type="text" id="settingSekolah" class="form-control" value="SMU (A) KHAIRIAH BANGGOL SETOL">
+      <div class="card-body p-3">
+        <h6 class="fw-bold text-navy mb-2 fs-6"><i class="fas fa-school me-1"></i>Maklumat Sekolah</h6>
+        <div class="mb-2">
+          <label class="form-label small fw-bold mb-1">Nama Sekolah</label>
+          <input type="text" id="settingSekolah" class="form-control form-control-sm" value="SMU (A) KHAIRIAH BANGGOL SETOL">
         </div>
-        <div class="mb-3">
-          <label class="form-label small fw-bold">Alamat / Bandar</label>
-          <input type="text" id="settingAlamat" class="form-control" value="17070 PASIR MAS, KELANTAN">
+        <div class="mb-2">
+          <label class="form-label small fw-bold mb-1">Alamat / Bandar</label>
+          <input type="text" id="settingAlamat" class="form-control form-control-sm" value="17070 PASIR MAS, KELANTAN">
         </div>
-        <button class="btn btn-primary w-100" style="background-color: var(--dark-blue);" onclick="saveSettings()">
+        <button class="btn btn-primary btn-sm w-100 mt-2" style="background-color: var(--dark-blue);" onclick="saveSettings()">
           <i class="fas fa-save me-1"></i> Simpan Tetapan
         </button>
       </div>
@@ -399,15 +411,15 @@
 <div class="modal fade" id="addModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header text-white" style="background-color: var(--dark-blue);">
-        <h5 class="modal-title fw-bold fs-6"><i class="fas fa-file-signature me-2"></i>Tambah Rekod Tuntutan</h5>
+      <div class="modal-header text-white" style="background-color: var(--dark-blue); padding: 12px 16px;">
+        <h6 class="modal-title fw-bold fs-6 m-0"><i class="fas fa-file-signature me-2"></i>Tambah Rekod Tuntutan</h6>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-3">
         <form id="claimForm">
           <div class="mb-3">
             <label class="form-label fw-bold small"><i class="fas fa-edit text-primary me-1"></i> Perkara</label>
-            <input type="text" id="inputPerkara" class="form-control" placeholder="Isi nama perkara" required>
+            <input type="text" id="inputPerkara" class="form-control form-control-sm" placeholder="Isi nama perkara" required>
           </div>
 
           <div class="mb-3">
@@ -435,11 +447,11 @@
 
           <div class="mb-3">
             <label class="form-label fw-bold small"><i class="fas fa-calendar-alt text-primary me-1"></i> Tarikh</label>
-            <input type="date" id="inputTarikh" class="form-control" required>
+            <input type="date" id="inputTarikh" class="form-control form-control-sm" required>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer p-2">
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Batal</button>
         <button type="button" id="btnSimpan" class="btn btn-primary btn-sm px-4" style="background-color: var(--dark-blue);" onclick="simpanTuntutan()">
           Simpan Data
@@ -688,4 +700,3 @@
 </script>
 </body>
 </html>
-
