@@ -1,1 +1,691 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Rekod Tuntutan Sekolah</title>
+  
+  <!-- Bootstrap 5 CSS & FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Firebase SDK (v9+ Compatibility Mode) -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+  <style>
+    :root {
+      --dark-blue: #0F2C59;
+      --navy-blue: #1A365D;
+      --accent-blue: #2B6CB0;
+      --light-bg: #F0F4F8;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Sidebar Navigation Layout */
+    .app-header {
+      background: linear-gradient(135deg, var(--dark-blue), var(--navy-blue));
+      color: white;
+      padding: 15px 20px;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin-bottom: 20px;
+    }
+
+    .nav-tabs-custom {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .nav-card-btn {
+      background: white;
+      color: var(--dark-blue);
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      flex: 1;
+      max-width: 140px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .nav-card-btn.active, .nav-card-btn:hover {
+      background: var(--dark-blue);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(15, 44, 89, 0.3);
+    }
+
+    .nav-card-btn i {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+
+    /* Dashboard & Cards */
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border-left: 5px solid var(--accent-blue);
+      margin-bottom: 15px;
+    }
+
+    .stat-card h6 {
+      color: #718096;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+
+    .stat-card h2 {
+      color: var(--dark-blue);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    /* Table Design */
+    .custom-table-container {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-top: 15px;
+    }
+
+    .table-title {
+      background-color: var(--navy-blue);
+      color: white;
+      padding: 12px 18px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      border-left: 4px solid #4299E1;
+    }
+
+    .table-custom {
+      width: 100%;
+      margin-bottom: 0;
+      border-collapse: collapse;
+    }
+
+    .table-custom th {
+      background-color: var(--dark-blue);
+      color: white;
+      text-align: center;
+      padding: 12px;
+      font-size: 0.9rem;
+      border: 1px solid #2D3748;
+    }
+
+    .table-custom td {
+      padding: 10px 12px;
+      border: 1px solid #E2E8F0;
+      vertical-align: middle;
+      font-size: 0.9rem;
+    }
+
+    .table-custom tr:nth-child(even) {
+      background-color: #F7FAFC;
+    }
+
+    /* Print Template Layout */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #printArea, #printArea * {
+        visibility: visible;
+      }
+      #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    .print-paper {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: Arial, sans-serif;
+    }
+
+    .print-header {
+      text-align: center;
+      font-weight: bold;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    .print-table th, .print-table td {
+      border: 1px solid #000;
+      padding: 8px;
+      font-size: 0.85rem;
+    }
+
+    .print-table th {
+      background-color: #E2E8F0;
+      text-align: center;
+    }
+
+    .signature-section {
+      margin-top: 50px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sig-box {
+      width: 45%;
+      text-align: left;
+    }
+
+    .sig-line {
+      margin-top: 60px;
+      border-bottom: 1px dotted #000;
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container max-w-lg px-2 py-2" style="max-width: 600px;">
+  
+  <!-- Header App -->
+  <div class="app-header text-center">
+    <h4 class="m-0 fw-bold" id="appHeaderTitle">SMU(A) KHAIRIAH BANGGOL SETOL</h4>
+    <p class="small text-white-50 m-0">Sistem Rekod Tuntutan Sekolah</p>
+    
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs-custom no-print">
+      <div class="nav-card-btn active" onclick="switchTab('utama')" id="btn-utama">
+        <i class="fas fa-chart-pie"></i>
+        <span>Utama</span>
+      </div>
+      <div class="nav-card-btn" onclick="switchTab('senarai')" id="btn-senarai">
+        <i class="fas fa-list-alt"></i>
+        <span>Senarai</span>
+      </div>
+      <div class="nav-card-btn" onclick="switchTab('cetak')" id="btn-cetak">
+        <i class="fas fa-print"></i>
+        <span>Cetak</span>
+      </div>
+      <div class="nav-card-btn" onclick="switchTab('tetapan')" id="btn-tetapan">
+        <i class="fas fa-cog"></i>
+        <span>Tetapan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 1: UTAMA (ANALISA) -->
+  <div id="tab-utama" class="tab-content">
+    <div class="card border-0 shadow-sm mb-3">
+      <div class="card-body bg-white rounded-3">
+        <h5 class="fw-bold text-dark mb-1" id="dashSchoolName">SMU(A) Khairiah Banggol Setol</h5>
+        <p class="text-muted small mb-2">Pengurusan Rekod Tuntutan Rasmi</p>
+        <span class="badge bg-primary px-3 py-2" id="currentDateBadge">-- Tarikh --</span>
+      </div>
+    </div>
+
+    <h6 class="fw-bold text-navy mb-3"><i class="fas fa-chart-line me-2"></i>Analisa Rekod Tuntutan</h6>
+    
+    <div class="stat-card">
+      <h6>Jumlah Rekod Tuntutan</h6>
+      <h2 id="statJumlah">0</h2>
+    </div>
+    
+    <div class="stat-card">
+      <h6>Rekod Bulan Ini</h6>
+      <h2 id="statBulanIni">0</h2>
+    </div>
+
+    <div class="stat-card">
+      <h6>Destinasi Utama (YIK/SUK/JPN)</h6>
+      <h2 id="statDestinasiUtama">-</h2>
+    </div>
+  </div>
+
+  <!-- TAB 2: SENARAI TUNTUTAN -->
+  <div id="tab-senarai" class="tab-content d-none">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h6 class="fw-bold m-0 text-navy"><i class="fas fa-table me-2"></i>Rekod Tuntutan</h6>
+      <button class="btn btn-primary btn-sm rounded-pill px-3" style="background-color: var(--dark-blue);" onclick="openAddModal()">
+        <i class="fas fa-plus me-1"></i> Tambah Tuntutan
+      </button>
+    </div>
+
+    <div class="custom-table-container">
+      <div class="table-title">
+        | SENARAI REKOD TUNTUTAN TERPERINCI
+      </div>
+      <div class="table-responsive">
+        <table class="table table-custom">
+          <thead>
+            <tr>
+              <th style="width: 10%;">Bil</th>
+              <th style="width: 45%;">Perkara</th>
+              <th style="width: 25%;">Tempat</th>
+              <th style="width: 20%;">Tarikh</th>
+            </tr>
+          </thead>
+          <tbody id="claimTableBody">
+            <tr>
+              <td colspan="4" class="text-center text-muted">Memuatkan data...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: CETAK TUNTUTAN -->
+  <div id="tab-cetak" class="tab-content d-none">
+    <div class="no-print mb-3 text-end">
+      <button class="btn btn-success" onclick="window.print()">
+        <i class="fas fa-print me-1"></i> Cetak Dokumen Ini
+      </button>
+    </div>
+
+    <div id="printArea" class="print-paper">
+      <div class="print-header">
+        <span id="printSchoolTitle">SMU (A) KHAIRIAH BANGGOL SETOL</span><br>
+        <span id="printSchoolSub">17070 PASIR MAS, KELANTAN</span><br>
+        <u>BORANG AKAUN RUNCIT</u><br><br>
+        TUNTUTAN PERBELANJAAN / PERJALANAN
+      </div>
+
+      <p style="font-size: 0.9rem; line-height: 1.6;">
+        Saya <b id="printNamaPemohon">ASRI B MOHD ZAIN</b> NO KP : <b id="printKpPemohon">A 1778358</b><br>
+        telah membelanjakan wang saya sendiri bagi tujuan perjalanan / membeli keperluan / peralatan / untuk urusan sekolah seperti berikut :
+      </p>
+
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th style="width: 8%;">BIL</th>
+            <th style="width: 48%;">PERKARA</th>
+            <th style="width: 24%;">TEMPAT</th>
+            <th style="width: 20%;">TARIKH</th>
+          </tr>
+        </thead>
+        <tbody id="printTableBody">
+          <!-- Max 20 Rows Baris Borang Printed -->
+        </tbody>
+      </table>
+
+      <div class="signature-section">
+        <div class="sig-box">
+          <p>Disemak oleh,</p>
+          <div class="sig-line"></div>
+          <p class="mt-2 mb-0"><b>(BENDAHARI)</b></p>
+          <p id="printSchoolSig1" style="font-size: 0.85rem;">SMU(A) Khairiah Banggol Setol</p>
+        </div>
+
+        <div class="sig-box">
+          <p>Disahkan oleh,</p>
+          <div class="sig-line"></div>
+          <p class="mt-2 mb-0"><b>(PENGETUA)</b></p>
+          <p id="printSchoolSig2" style="font-size: 0.85rem;">SMU(A) Khairiah Banggol Setol</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: TETAPAN -->
+  <div id="tab-tetapan" class="tab-content d-none">
+    <div class="card border-0 shadow-sm mb-3">
+      <div class="card-body">
+        <h6 class="fw-bold text-navy mb-3"><i class="fas fa-id-card me-2"></i>Maklumat Pemohon / Penuntut</h6>
+        <div class="mb-3">
+          <label class="form-label small fw-bold">Nama Penuh</label>
+          <input type="text" id="settingNama" class="form-control" value="ASRI B MOHD ZAIN">
+        </div>
+        <div class="mb-3">
+          <label class="form-label small fw-bold">No. Kad Pengenalan</label>
+          <input type="text" id="settingKp" class="form-control" value="A 1778358">
+        </div>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-3">
+      <div class="card-body">
+        <h6 class="fw-bold text-navy mb-3"><i class="fas fa-school me-2"></i>Maklumat Sekolah</h6>
+        <div class="mb-3">
+          <label class="form-label small fw-bold">Nama Sekolah</label>
+          <input type="text" id="settingSekolah" class="form-control" value="SMU (A) KHAIRIAH BANGGOL SETOL">
+        </div>
+        <div class="mb-3">
+          <label class="form-label small fw-bold">Alamat / Bandar</label>
+          <input type="text" id="settingAlamat" class="form-control" value="17070 PASIR MAS, KELANTAN">
+        </div>
+        <button class="btn btn-primary w-100" style="background-color: var(--dark-blue);" onclick="saveSettings()">
+          <i class="fas fa-save me-1"></i> Simpan Tetapan
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal Tambah Tuntutan -->
+<div class="modal fade" id="addModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header text-white" style="background-color: var(--dark-blue);">
+        <h5 class="modal-title fw-bold fs-6"><i class="fas fa-file-signature me-2"></i>Tambah Rekod Tuntutan</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="claimForm">
+          <div class="mb-3">
+            <label class="form-label fw-bold small"><i class="fas fa-edit text-primary me-1"></i> Perkara</label>
+            <input type="text" id="inputPerkara" class="form-control" placeholder="Isi nama perkara" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold small"><i class="fas fa-map-marker-alt text-primary me-1"></i> Tempat (Pilih Satu)</label>
+            <div class="p-2 border rounded bg-light">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tempatOpt" value="YIK" id="optYik" onclick="toggleLain(false)" checked>
+                <label class="form-check-label small" for="optYik">YIK</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tempatOpt" value="SUK" id="optSuk" onclick="toggleLain(false)">
+                <label class="form-check-label small" for="optSuk">SUK</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tempatOpt" value="JPN" id="optJpn" onclick="toggleLain(false)">
+                <label class="form-check-label small" for="optJpn">JPN</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tempatOpt" value="Lain-lain" id="optLain" onclick="toggleLain(true)">
+                <label class="form-check-label small" for="optLain">Lain-lain</label>
+              </div>
+              <input type="text" id="inputLain" class="form-control mt-2 form-control-sm" style="display:none;" placeholder="Sila nyatakan tempat">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold small"><i class="fas fa-calendar-alt text-primary me-1"></i> Tarikh</label>
+            <input type="date" id="inputTarikh" class="form-control" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Batal</button>
+        <button type="button" id="btnSimpan" class="btn btn-primary btn-sm px-4" style="background-color: var(--dark-blue);" onclick="simpanTuntutan()">
+          Simpan Data
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JS Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Konfigurasi Firebase Rasmi Anda
+  const firebaseConfig = {
+    apiKey: "AIzaSyAOV9CBu925ZwXmfxv0aSJYF0O6QiFoTdw",
+    authDomain: "sistem-tuntutan-8751c.firebaseapp.com",
+    projectId: "sistem-tuntutan-8751c",
+    storageBucket: "sistem-tuntutan-8751c.firebasestorage.app",
+    messagingSenderId: "112296841650",
+    appId: "1:112296841650:web:7c1044033a0c60e58f94ab"
+  };
+
+  // Initialize Firebase
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.firestore();
+
+  let claimsData = [];
+  let modalInstance = null;
+
+  document.addEventListener("DOMContentLoaded", function() {
+    modalInstance = new bootstrap.Modal(document.getElementById('addModal'));
+    
+    // Set Tarikh Semasa
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('currentDateBadge').innerText = new Date().toLocaleDateString('ms-MY', options);
+
+    loadSettings();
+    fetchClaimsData();
+  });
+
+  // Switch Tab Navigation
+  function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
+    document.querySelectorAll('.nav-card-btn').forEach(el => el.classList.remove('active'));
+
+    document.getElementById(`tab-${tabName}`).classList.remove('d-none');
+    document.getElementById(`btn-${tabName}`).classList.add('active');
+
+    if(tabName === 'cetak') {
+      renderPrintView();
+    }
+  }
+
+  function toggleLain(show) {
+    document.getElementById('inputLain').style.display = show ? 'block' : 'none';
+  }
+
+  function openAddModal() {
+    document.getElementById('claimForm').reset();
+    document.getElementById('inputLain').style.display = 'none';
+    modalInstance.show();
+  }
+
+  // Fetch Data dari Firestore (Realtime Listener)
+  function fetchClaimsData() {
+    db.collection("tuntutan").orderBy("tarikh", "asc").onSnapshot((snapshot) => {
+      claimsData = [];
+      snapshot.forEach((doc) => {
+        claimsData.push({ id: doc.id, ...doc.data() });
+      });
+      renderTable();
+      renderAnalytics();
+    }, (error) => {
+      console.error("Ralat Firebase: ", error);
+    });
+  }
+
+  // Render Table
+  function renderTable() {
+    const tbody = document.getElementById('claimTableBody');
+    tbody.innerHTML = '';
+
+    if (claimsData.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted">Tiada rekod tuntutan dijumpai.</td></tr>`;
+      return;
+    }
+
+    claimsData.forEach((item, index) => {
+      const formattedDate = formatDateDisplay(item.tarikh);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="text-center fw-bold">${index + 1}</td>
+        <td>${item.perkara}</td>
+        <td>${item.tempat}</td>
+        <td class="text-center">${formattedDate}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Render Analisa (Kad Utama)
+  function renderAnalytics() {
+    document.getElementById('statJumlah').innerText = claimsData.length;
+
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+
+    const bulanIni = claimsData.filter(item => {
+      const d = new Date(item.tarikh);
+      return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+    });
+
+    document.getElementById('statBulanIni').innerText = bulanIni.length;
+
+    // Destinasi Popular
+    const counts = {};
+    claimsData.forEach(item => { counts[item.tempat] = (counts[item.tempat] || 0) + 1; });
+    let maxTempat = "-";
+    let maxCount = 0;
+    for (const [k, v] of Object.entries(counts)) {
+      if (v > maxCount) { maxCount = v; maxTempat = k; }
+    }
+    document.getElementById('statDestinasiUtama').innerText = maxTempat;
+  }
+
+  // Simpan Data Tuntutan Ke Firebase
+  function simpanTuntutan() {
+    const perkara = document.getElementById('inputPerkara').value.trim();
+    const tarikh = document.getElementById('inputTarikh').value;
+    
+    let selectedTempat = document.querySelector('input[name="tempatOpt"]:checked')?.value;
+    if (selectedTempat === 'Lain-lain') {
+      selectedTempat = document.getElementById('inputLain').value.trim();
+    }
+
+    if (!perkara || !tarikh || !selectedTempat) {
+      Swal.fire('Ralat!', 'Sila lengkapkan semua medan jawapan.', 'warning');
+      return;
+    }
+
+    const btn = document.getElementById('btnSimpan');
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menyimpan...`;
+
+    db.collection("tuntutan").add({
+      perkara: perkara,
+      tempat: selectedTempat,
+      tarikh: tarikh,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      btn.disabled = false;
+      btn.innerHTML = `Simpan Data`;
+      modalInstance.hide();
+      Swal.fire('Berjaya!', 'Data tuntutan telah disimpan.', 'success');
+    })
+    .catch((error) => {
+      btn.disabled = false;
+      btn.innerHTML = `Simpan Data`;
+      Swal.fire('Ralat!', error.message, 'error');
+    });
+  }
+
+  // Render Cetak View
+  function renderPrintView() {
+    const tbody = document.getElementById('printTableBody');
+    tbody.innerHTML = '';
+
+    const maxRows = 20; 
+    for (let i = 0; i < maxRows; i++) {
+      const item = claimsData[i];
+      const tr = document.createElement('tr');
+      if (item) {
+        tr.innerHTML = `
+          <td style="text-align: center;">${i + 1}</td>
+          <td>${item.perkara}</td>
+          <td>${item.tempat}</td>
+          <td style="text-align: center;">${formatDateDisplayShort(item.tarikh)}</td>
+        `;
+      } else {
+        tr.innerHTML = `
+          <td style="text-align: center;">${i + 1}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        `;
+      }
+      tbody.appendChild(tr);
+    }
+  }
+
+  // Pengurusan Tetapan
+  function saveSettings() {
+    const nama = document.getElementById('settingNama').value;
+    const kp = document.getElementById('settingKp').value;
+    const sekolah = document.getElementById('settingSekolah').value;
+    const alamat = document.getElementById('settingAlamat').value;
+
+    localStorage.setItem('claim_nama', nama);
+    localStorage.setItem('claim_kp', kp);
+    localStorage.setItem('claim_sekolah', sekolah);
+    localStorage.setItem('claim_alamat', alamat);
+
+    loadSettings();
+    Swal.fire('Berjaya!', 'Tetapan berjaya disimpan.', 'success');
+  }
+
+  function loadSettings() {
+    const nama = localStorage.getItem('claim_nama') || "ASRI B MOHD ZAIN";
+    const kp = localStorage.getItem('claim_kp') || "A 1778358";
+    const sekolah = localStorage.getItem('claim_sekolah') || "SMU (A) KHAIRIAH BANGGOL SETOL";
+    const alamat = localStorage.getItem('claim_alamat') || "17070 PASIR MAS, KELANTAN";
+
+    document.getElementById('settingNama').value = nama;
+    document.getElementById('settingKp').value = kp;
+    document.getElementById('settingSekolah').value = sekolah;
+    document.getElementById('settingAlamat').value = alamat;
+
+    document.getElementById('appHeaderTitle').innerText = sekolah;
+    document.getElementById('dashSchoolName').innerText = sekolah;
+    document.getElementById('printSchoolTitle').innerText = sekolah;
+    document.getElementById('printSchoolSub').innerText = alamat;
+    document.getElementById('printNamaPemohon').innerText = nama;
+    document.getElementById('printKpPemohon').innerText = kp;
+    document.getElementById('printSchoolSig1').innerText = sekolah;
+    document.getElementById('printSchoolSig2').innerText = sekolah;
+  }
+
+  // Helper Tarikh Display
+  function formatDateDisplay(dateStr) {
+    if(!dateStr) return '';
+    const parts = dateStr.split('-');
+    if(parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    return dateStr;
+  }
+
+  function formatDateDisplayShort(dateStr) {
+    if(!dateStr) return '';
+    const parts = dateStr.split('-');
+    if(parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0].substring(2)}`;
+    return dateStr;
+  }
+</script>
+</body>
+</html>
 
