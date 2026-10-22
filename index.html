@@ -10,6 +10,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- Firebase SDK (v9+ Compatibility Mode) -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
@@ -29,199 +30,99 @@
       padding: 0;
     }
 
-    /* === REKABENTUK PC / DESKTOP === */
-    @media (min-width: 992px) {
-      .app-layout-wrapper {
-        display: flex;
-        min-height: 100vh;
-      }
-      
-      .pc-sidebar {
-        width: 250px;
-        background: white;
-        border-right: 1px solid #E2E8F0;
-        padding: 20px 15px;
-        flex-shrink: 0;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.03);
-      }
-
-      .pc-brand-box {
-        background: var(--dark-blue);
-        color: white;
-        padding: 15px;
-        border-radius: 12px;
-        text-align: center;
-        margin-bottom: 25px;
-      }
-
-      .pc-brand-box h5 {
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin: 0;
-      }
-
-      .pc-brand-box p {
-        font-size: 0.75rem;
-        margin: 4px 0 0 0;
-        opacity: 0.8;
-      }
-
-      .pc-nav-list {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .pc-nav-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px 16px;
-        border-radius: 10px;
-        color: #4A5568;
-        font-weight: 600;
-        font-size: 0.9rem;
-        text-decoration: none;
-        cursor: pointer;
-        transition: all 0.2s ease;
-      }
-
-      .pc-nav-item:hover, .pc-nav-item.active {
-        background-color: #EBF8FF;
-        color: var(--dark-blue);
-        border-left: 4px solid var(--dark-blue);
-      }
-
-      .pc-main-content {
-        flex-grow: 1;
-        padding: 25px 35px;
-        background-color: #F7FAFC;
-        overflow-y: auto;
-      }
-
-      .pc-top-banner {
-        background: linear-gradient(135deg, #70001B, #8B0000);
-        color: white;
-        padding: 20px 30px;
-        border-radius: 12px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      }
-
-      .mobile-only-header {
-        display: none !important;
-      }
+    .app-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 10px 8px;
     }
 
-    /* === REKABENTUK MOBILE / TELEFON === */
-    @media (max-width: 991.98px) {
-      .pc-sidebar {
-        display: none !important;
-      }
-      .pc-top-banner {
-        display: none !important;
-      }
-      .app-container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 10px 8px;
-      }
-      .app-header {
-        background: linear-gradient(135deg, var(--dark-blue), var(--navy-blue));
-        color: white;
-        padding: 16px 10px 12px 10px;
-        border-radius: 16px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        margin-bottom: 15px;
-        overflow: hidden;
-      }
-      .header-single-line {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: clamp(0.9rem, 3.8vw, 1.25rem);
-        font-weight: 700;
-        margin: 0;
-      }
-      .nav-tabs-custom {
-        display: flex;
-        gap: 6px;
-        justify-content: space-between;
-        margin-top: 12px;
-        width: 100%;
-      }
-      .nav-card-btn {
-        background: white;
-        color: var(--dark-blue);
-        border: 1px solid #E2E8F0;
-        border-radius: 10px;
-        padding: 8px 4px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.75rem;
-        text-align: center;
-        flex: 1;
-        min-width: 0;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        transition: all 0.2s ease;
-        cursor: pointer;
-        white-space: nowrap;
-      }
-      .nav-card-btn.active, .nav-card-btn:hover {
-        background: var(--dark-blue);
-        color: white;
-        border-color: var(--dark-blue);
-        box-shadow: 0 3px 8px rgba(15, 44, 89, 0.3);
-      }
-      .nav-card-btn i {
-        display: block;
-        font-size: 1.1rem;
-        margin-bottom: 3px;
-      }
+    /* Header App (Tajuk Sekolah 1 Baris) */
+    .app-header {
+      background: linear-gradient(135deg, var(--dark-blue), var(--navy-blue));
+      color: white;
+      padding: 16px 10px 12px 10px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin-bottom: 15px;
+      overflow: hidden;
     }
 
-    /* Gaya Butang Khas Pill Shape */
+    .header-single-line {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: clamp(0.9rem, 3.8vw, 1.25rem);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs-custom {
+      display: flex;
+      gap: 6px;
+      justify-content: space-between;
+      margin-top: 12px;
+      width: 100%;
+    }
+
+    .nav-card-btn {
+      background: white;
+      color: var(--dark-blue);
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 8px 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-align: center;
+      flex: 1;
+      min-width: 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav-card-btn.active, .nav-card-btn:hover {
+      background: var(--dark-blue);
+      color: white;
+      border-color: var(--dark-blue);
+      box-shadow: 0 3px 8px rgba(15, 44, 89, 0.3);
+    }
+
+    .nav-card-btn i {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+
+    /* Gaya Butang Khas (Pill Shape) Seperti Tambah Tuntutan */
     .btn-pill-blue {
       background-color: var(--dark-blue);
-      color: white !important;
+      color: white;
       border-radius: 50px;
-      padding: 10px 24px;
+      padding: 8px 20px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       border: 2px solid #2B6CB0;
-      box-shadow: 0 3px 8px rgba(15, 44, 89, 0.25);
+      box-shadow: 0 2px 6px rgba(15, 44, 89, 0.2);
       transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
     }
 
     .btn-pill-blue:hover {
       background-color: var(--navy-blue);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 12px rgba(15, 44, 89, 0.35);
+      color: white;
+      transform: translateY(-1px);
     }
 
-    .btn-pill-compact {
-      max-width: 280px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 8px 20px;
-      font-size: 0.85rem;
-    }
-
-    /* Dashboard & Stat Cards */
+    /* Dashboard & Cards */
     .stat-card {
       background: white;
       border-radius: 12px;
-      padding: 18px;
+      padding: 16px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       border-left: 5px solid var(--accent-blue);
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .stat-card h6 {
@@ -251,10 +152,10 @@
     .table-title {
       background-color: var(--navy-blue);
       color: white;
-      padding: 12px 16px;
+      padding: 10px 14px;
       font-weight: bold;
-      font-size: 0.88rem;
-      border-left: none;
+      font-size: 0.85rem;
+      border-left: 4px solid #4299E1;
     }
 
     .table-custom {
@@ -267,27 +168,27 @@
       background-color: var(--dark-blue);
       color: white;
       text-align: center;
-      padding: 12px 8px;
-      font-size: 0.85rem;
+      padding: 10px 6px;
+      font-size: 0.8rem;
       border: 1px solid #2D3748;
     }
 
     .table-custom td {
-      padding: 10px 8px;
+      padding: 8px 6px;
       border: 1px solid #E2E8F0;
       vertical-align: middle;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
     }
 
     .table-custom tr:nth-child(even) {
       background-color: #F7FAFC;
     }
 
-    /* === FORMAT CETAKAN A4 (1 MUKA SURAT - 15 BARIS) === */
+    /* Format Cetakan A4 (1 Muka Surat) */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 6mm 8mm;
+        margin: 12mm 10mm 10mm 10mm;
       }
       body * {
         visibility: hidden;
@@ -301,315 +202,262 @@
         top: 0;
         width: 100%;
         box-shadow: none !important;
+        padding: 0 !important;
       }
       .no-print {
         display: none !important;
       }
     }
 
-    .print-paper-g3 {
+    .print-paper {
       background: white;
-      padding: 20px 25px 45px 25px;
-      border: 1px solid #000;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       max-width: 800px;
       margin: 0 auto;
-      font-family: 'Times New Roman', Times, serif;
-      color: #000;
-      box-sizing: border-box;
-      min-height: 980px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      font-family: Arial, sans-serif;
     }
 
-    .print-header-g3 {
+    .print-header {
       text-align: center;
       font-weight: bold;
-      line-height: 1.35;
-      margin-bottom: 14px;
-      text-transform: uppercase;
+      line-height: 1.3;
+      margin-bottom: 12px;
     }
 
-    .print-table-g3 {
+    .print-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 8px 0;
+      margin: 10px 0;
     }
 
-    .print-table-g3 th, .print-table-g3 td {
+    .print-table th, .print-table td {
       border: 1px solid #000;
-      padding: 4px 6px;
-      font-size: 0.82rem;
+      padding: 4px 6px; /* Padding dipadatkan untuk muat 1 muka surat */
+      font-size: 0.8rem;
       height: 22px;
     }
 
-    .print-table-g3 th {
+    .print-table th {
+      background-color: #E2E8F0;
       text-align: center;
-      font-weight: bold;
     }
 
-    .dotted-line {
+    .signature-section {
+      margin-top: 30px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sig-box {
+      width: 45%;
+      text-align: left;
+    }
+
+    .sig-line {
+      margin-top: 45px;
       border-bottom: 1px dotted #000;
-      display: inline-block;
-      min-width: 140px;
-      padding: 0 5px;
+      width: 85%;
     }
   </style>
 </head>
 <body>
 
-<div class="app-layout-wrapper">
+<div class="app-container">
   
-  <!-- DESKTOP SIDEBAR -->
-  <div class="pc-sidebar no-print">
-    <div class="pc-brand-box">
-      <h5>TUNTUTAN</h5>
-      <p>Sistem Tuntutan Sekolah</p>
-    </div>
-    <div class="pc-nav-list">
-      <div class="pc-nav-item active" onclick="switchTab('utama')" id="pc-btn-utama">
-        <i class="fas fa-home"></i> <span>Utama</span>
-      </div>
-      <div class="pc-nav-item" onclick="switchTab('senarai')" id="pc-btn-senarai">
-        <i class="fas fa-list-alt"></i> <span>Senarai Tuntutan</span>
-      </div>
-      <div class="pc-nav-item" onclick="switchTab('cetak')" id="pc-btn-cetak">
-        <i class="fas fa-print"></i> <span>Cetak Tuntutan</span>
-      </div>
-      <div class="pc-nav-item" onclick="switchTab('tetapan')" id="pc-btn-tetapan">
-        <i class="fas fa-cog"></i> <span>Tetapan</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- KANDUNGAN UTAMA / MAIN CONTENT -->
-  <div class="pc-main-content">
+  <!-- Header App (Satu Baris) -->
+  <div class="app-header text-center">
+    <h5 class="header-single-line" id="appHeaderTitle">SMU(A) KHAIRIAH BANGGOL SETOL</h5>
+    <p class="small text-white-50 m-0" style="font-size: 0.78rem;">Sistem Rekod Tuntutan Sekolah</p>
     
-    <!-- DESKTOP TOP BANNER -->
-    <div class="pc-top-banner no-print">
-      <div>
-        <h4 class="fw-bold mb-1" id="pcHeaderTitle">SMU(A) Khairiah Banggol Setol</h4>
-        <p class="mb-0 small opacity-75">Pengurusan Rekod Tuntutan Perbelanjaan Rasmi</p>
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs-custom no-print">
+      <div class="nav-card-btn active" onclick="switchTab('utama')" id="btn-utama">
+        <i class="fas fa-chart-pie"></i>
+        <span>Utama</span>
       </div>
-      <div>
-        <span class="badge bg-white text-dark px-3 py-2 fw-semibold" id="pcDateBadge">-- Tarikh --</span>
+      <div class="nav-card-btn" onclick="switchTab('senarai')" id="btn-senarai">
+        <i class="fas fa-list-alt"></i>
+        <span>Senarai</span>
       </div>
-    </div>
-
-    <div class="app-container">
-      
-      <!-- MOBILE HEADER -->
-      <div class="app-header text-center mobile-only-header no-print">
-        <h5 class="header-single-line" id="appHeaderTitle">SMU(A) KHAIRIAH BANGGOL SETOL</h5>
-        <p class="small text-white-50 m-0" style="font-size: 0.78rem;">Sistem Rekod Tuntutan Sekolah</p>
-        
-        <!-- Navigation Tabs (Mobile) -->
-        <div class="nav-tabs-custom">
-          <div class="nav-card-btn active" onclick="switchTab('utama')" id="btn-utama">
-            <i class="fas fa-chart-pie"></i>
-            <span>Utama</span>
-          </div>
-          <div class="nav-card-btn" onclick="switchTab('senarai')" id="btn-senarai">
-            <i class="fas fa-list-alt"></i>
-            <span>Senarai</span>
-          </div>
-          <div class="nav-card-btn" onclick="switchTab('cetak')" id="btn-cetak">
-            <i class="fas fa-print"></i>
-            <span>Cetak</span>
-          </div>
-          <div class="nav-card-btn" onclick="switchTab('tetapan')" id="btn-tetapan">
-            <i class="fas fa-cog"></i>
-            <span>Tetapan</span>
-          </div>
-        </div>
+      <div class="nav-card-btn" onclick="switchTab('cetak')" id="btn-cetak">
+        <i class="fas fa-print"></i>
+        <span>Cetak</span>
       </div>
-
-      <!-- TAB 1: UTAMA (ANALISA) -->
-      <div id="tab-utama" class="tab-content">
-        <div class="card border-0 shadow-sm mb-3">
-          <div class="card-body bg-white rounded-3 p-3">
-            <h6 class="fw-bold text-dark mb-1" id="dashSchoolName">SMU(A) Khairiah Banggol Setol</h6>
-            <p class="text-muted small mb-2" style="font-size: 0.8rem;">Pengurusan Rekod Tuntutan Rasmi</p>
-            <span class="badge bg-primary px-3 py-1" id="currentDateBadge" style="font-size: 0.75rem;">-- Tarikh --</span>
-          </div>
-        </div>
-
-        <h6 class="fw-bold text-navy mb-2 fs-6"><i class="fas fa-chart-line me-1"></i>Analisa Rekod Tuntutan</h6>
-        
-        <div class="stat-card">
-          <h6>Jumlah Rekod Tuntutan</h6>
-          <h2 id="statJumlah">0</h2>
-        </div>
-        
-        <div class="stat-card">
-          <h6>Rekod Bulan Ini</h6>
-          <h2 id="statBulanIni">0</h2>
-        </div>
-
-        <div class="stat-card">
-          <h6>Destinasi Utama (YIK/SUK/JPN/MAIK)</h6>
-          <h2 id="statDestinasiUtama" style="font-size: 1.3rem;">-</h2>
-        </div>
+      <div class="nav-card-btn" onclick="switchTab('tetapan')" id="btn-tetapan">
+        <i class="fas fa-cog"></i>
+        <span>Tetapan</span>
       </div>
-
-      <!-- TAB 2: SENARAI TUNTUTAN -->
-      <div id="tab-senarai" class="tab-content d-none">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h6 class="fw-bold m-0 text-navy fs-6"><i class="fas fa-table me-1"></i>Rekod Tuntutan</h6>
-          <button class="btn-pill-blue" onclick="openAddModal()">
-            <i class="fas fa-plus"></i> Tambah Tuntutan
-          </button>
-        </div>
-
-        <div class="custom-table-container">
-          <div class="table-title">
-            | SENARAI REKOD TUNTUTAN TERPERINCI
-          </div>
-          <div class="table-responsive">
-            <table class="table table-custom">
-              <thead>
-                <tr>
-                  <th style="width: 10%;">Bil</th>
-                  <th style="width: 50%;">Perkara</th>
-                  <th style="width: 20%;">Tempat</th>
-                  <th style="width: 20%;">Tarikh</th>
-                </tr>
-              </thead>
-              <tbody id="claimTableBody">
-                <tr>
-                  <td colspan="4" class="text-center text-muted">Memuatkan data...</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: CETAK TUNTUTAN -->
-      <div id="tab-cetak" class="tab-content d-none">
-        <div class="no-print mb-3 text-end">
-          <button class="btn-pill-blue" onclick="window.print()">
-            <i class="fas fa-print"></i> Cetak Dokumen Ini
-          </button>
-        </div>
-
-        <div id="printArea" class="print-paper-g3">
-          <div>
-            <!-- Header Cetak -->
-            <div class="print-header-g3">
-              <span id="printSchoolTitle" style="font-size: 1.1rem;">SMU (A) KHAIRIAH BANGGOL SETOL</span><br>
-              <span id="printSchoolSub" style="font-size: 1rem;">17070 PASIR MAS KELANTAN</span><br><br>
-              <u style="font-size: 1.05rem;">BORANG AKAUN RUNCIT</u><br><br>
-              <u style="font-size: 1rem;">TUNTUTAN PERBELANJAAN/ PERJALANAN</u>
-            </div>
-
-            <!-- Pihak Pemohon -->
-            <p style="font-size: 0.85rem; line-height: 1.7; margin-bottom: 8px;">
-              Saya <span class="dotted-line" id="printNamaPemohon">ASRI B MOHD ZAIN</span> kad pengenalan <span class="dotted-line" id="printKpPemohon">A 1778358</span> telah membelanjakan wang saya sendiri bagi tujuan perjalanan/ membeli keperluan/ peralatan untuk urusan sekolah seperti berikut. :
-            </p>
-
-            <!-- Jadual Cetak (15 Baris Minima) -->
-            <table class="print-table-g3">
-              <thead>
-                <tr>
-                  <th style="width: 10%;">BIL</th>
-                  <th style="width: 48%;">PERKARA</th>
-                  <th style="width: 22%;">TEMPAT/ JUMLAH</th>
-                  <th style="width: 20%;">TARIKH</th>
-                </tr>
-              </thead>
-              <tbody id="printTableBody">
-                <!-- 15 Baris Standard -->
-              </tbody>
-            </table>
-
-            <p style="font-size: 0.82rem; margin-top: 6px; margin-bottom: 12px;">
-              Sukacita saya membuat tuntutan kepada pihak sekolah sebagaimana jumlah di atas.
-            </p>
-          </div>
-
-          <!-- Bahagian Tandatangan & Tarikh Selari Di Bawah -->
-          <div style="font-size: 0.85rem; line-height: 1.7; margin-top: 10px;">
-            <div class="d-flex justify-content-between">
-              <div style="width: 48%;">T/tangan penuntut .....................................</div>
-              <div style="width: 48%; text-align: left;">Tarikh ................................</div>
-            </div>
-            
-            <div class="d-flex justify-content-between" style="margin-top: 20px; margin-bottom: 5px;">
-              <div style="width: 48%;">
-                <p class="m-0">Disemak Oleh,</p>
-                <br><br>
-                <p class="m-0">...........................................</p>
-                <p class="m-0"><b>(BENDAHARI SMUAK)</b></p>
-              </div>
-
-              <div style="width: 48%;">
-                <p class="m-0">Diluluskan Oleh,</p>
-                <br><br>
-                <p class="m-0">...........................................</p>
-                <p class="m-0"><b>(PENGETUA SMUAK)</b></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 4: TETAPAN -->
-      <div id="tab-tetapan" class="tab-content d-none">
-        <div class="card border-0 shadow-sm mb-3">
-          <div class="card-body p-3">
-            <h6 class="fw-bold text-navy mb-2 fs-6"><i class="fas fa-id-card me-1"></i>Maklumat Pemohon / Penuntut</h6>
-            <div class="mb-2">
-              <label class="form-label small fw-bold mb-1">Nama Penuh</label>
-              <input type="text" id="settingNama" class="form-control form-control-sm" value="ASRI B MOHD ZAIN">
-            </div>
-            <div class="mb-2">
-              <label class="form-label small fw-bold mb-1">No. Kad Pengenalan</label>
-              <input type="text" id="settingKp" class="form-control form-control-sm" value="A 1778358">
-            </div>
-          </div>
-        </div>
-
-        <div class="card border-0 shadow-sm mb-3">
-          <div class="card-body p-3">
-            <h6 class="fw-bold text-navy mb-2 fs-6"><i class="fas fa-school me-1"></i>Maklumat Sekolah</h6>
-            <div class="mb-2">
-              <label class="form-label small fw-bold mb-1">Nama Sekolah</label>
-              <input type="text" id="settingSekolah" class="form-control form-control-sm" value="SMU (A) KHAIRIAH BANGGOL SETOL">
-            </div>
-            <div class="mb-2">
-              <label class="form-label small fw-bold mb-1">Alamat / Bandar</label>
-              <input type="text" id="settingAlamat" class="form-control form-control-sm" value="17070 PASIR MAS KELANTAN">
-            </div>
-            
-            <div class="text-center mt-3">
-              <button class="btn-pill-blue btn-pill-compact" id="btnSaveSettings" onclick="saveSettings()">
-                <i class="fas fa-save"></i> Simpan Tetapan
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="card border-0 shadow-sm mb-3 border-danger">
-          <div class="card-body p-3">
-            <h6 class="fw-bold text-danger mb-2 fs-6"><i class="fas fa-database me-1"></i>Pengurusan Data Rekod</h6>
-            <p class="small text-muted mb-3 text-center">Urus atau padam rekod tuntutan tersimpan menggunakan nombor BIL.</p>
-            
-            <div class="d-flex flex-column gap-2 align-items-center">
-              <button class="btn-pill-blue btn-pill-compact" onclick="promptEditByBil()">
-                <i class="fas fa-edit"></i> Kemaskini Rekod Tuntutan
-              </button>
-
-              <button class="btn-pill-blue btn-pill-compact" style="background-color: #9B2C2C; border-color: #C53030;" onclick="hapusSemuaData()">
-                <i class="fas fa-trash-alt"></i> Hapus Semua Rekod Tuntutan
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
+
+  <!-- TAB 1: UTAMA (ANALISA) -->
+  <div id="tab-utama" class="tab-content">
+    <div class="card border-0 shadow-sm mb-3">
+      <div class="card-body bg-white rounded-3 p-3">
+        <h6 class="fw-bold text-dark mb-1" id="dashSchoolName">SMU(A) Khairiah Banggol Setol</h6>
+        <p class="text-muted small mb-2" style="font-size: 0.8rem;">Pengurusan Rekod Tuntutan Rasmi</p>
+        <span class="badge bg-primary px-3 py-1" id="currentDateBadge" style="font-size: 0.75rem;">-- Tarikh --</span>
+      </div>
+    </div>
+
+    <h6 class="fw-bold text-navy mb-2 fs-6"><i class="fas fa-chart-line me-1"></i>Analisa Rekod Tuntutan</h6>
+    
+    <div class="stat-card">
+      <h6>Jumlah Rekod Tuntutan</h6>
+      <h2 id="statJumlah">0</h2>
+    </div>
+    
+    <div class="stat-card">
+      <h6>Rekod Bulan Ini</h6>
+      <h2 id="statBulanIni">0</h2>
+    </div>
+
+    <div class="stat-card">
+      <h6>Destinasi Utama (YIK/SUK/JPN)</h6>
+      <h2 id="statDestinasiUtama" style="font-size: 1.3rem;">-</h2>
+    </div>
+  </div>
+
+  <!-- TAB 2: SENARAI TUNTUTAN -->
+  <div id="tab-senarai" class="tab-content d-none">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h6 class="fw-bold m-0 text-navy fs-6"><i class="fas fa-table me-1"></i>Rekod Tuntutan</h6>
+      <button class="btn btn-pill-blue" onclick="openAddModal()">
+        <i class="fas fa-plus me-1"></i> Tambah Tuntutan
+      </button>
+    </div>
+
+    <div class="custom-table-container">
+      <div class="table-title">
+        | SENARAI REKOD TUNTUTAN TERPERINCI
+      </div>
+      <div class="table-responsive">
+        <table class="table table-custom">
+          <thead>
+            <tr>
+              <th style="width: 8%;">Bil</th>
+              <th style="width: 40%;">Perkara</th>
+              <th style="width: 20%;">Tempat</th>
+              <th style="width: 18%;">Tarikh</th>
+              <th style="width: 14%;">Tindakan</th>
+            </tr>
+          </thead>
+          <tbody id="claimTableBody">
+            <tr>
+              <td colspan="5" class="text-center text-muted">Memuatkan data...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: CETAK TUNTUTAN -->
+  <div id="tab-cetak" class="tab-content d-none">
+    <div class="no-print mb-3 text-end">
+      <!-- Butang Cetak Mengikut Bentuk Tambah Tuntutan -->
+      <button class="btn btn-pill-blue" onclick="window.print()">
+        <i class="fas fa-print me-1"></i> Cetak Dokumen Ini
+      </button>
+    </div>
+
+    <div id="printArea" class="print-paper">
+      <div class="print-header">
+        <span id="printSchoolTitle">SMU (A) KHAIRIAH BANGGOL SETOL</span><br>
+        <span id="printSchoolSub">17070 PASIR MAS, KELANTAN</span><br>
+        <u style="font-size: 0.95rem;">BORANG AKAUN RUNCIT</u><br><br>
+        <span style="font-size: 0.9rem;">TUNTUTAN PERBELANJAAN / PERJALANAN</span>
+      </div>
+
+      <p style="font-size: 0.82rem; line-height: 1.4; margin-bottom: 8px;">
+        Saya <b id="printNamaPemohon">ASRI B MOHD ZAIN</b> NO KP : <b id="printKpPemohon">A 1778358</b><br>
+        telah membelanjakan wang saya sendiri bagi tujuan perjalanan / membeli keperluan / peralatan / untuk urusan sekolah seperti berikut :
+      </p>
+
+      <table class="print-table">
+        <thead>
+          <tr>
+            <th style="width: 8%;">BIL</th>
+            <th style="width: 48%;">PERKARA</th>
+            <th style="width: 24%;">TEMPAT</th>
+            <th style="width: 20%;">TARIKH</th>
+          </tr>
+        </thead>
+        <tbody id="printTableBody">
+          <!-- Minimum 15 Baris (Automatik bertambah jika data > 15) -->
+        </tbody>
+      </table>
+
+      <div class="signature-section">
+        <div class="sig-box">
+          <p style="font-size: 0.82rem; margin-bottom: 0;">Disemak oleh,</p>
+          <div class="sig-line"></div>
+          <p class="mt-2 mb-0" style="font-size: 0.82rem;"><b>(BENDAHARI)</b></p>
+          <p id="printSchoolSig1" style="font-size: 0.78rem;">SMU(A) Khairiah Banggol Setol</p>
+        </div>
+
+        <div class="sig-box">
+          <p style="font-size: 0.82rem; margin-bottom: 0;">Disahkan oleh,</p>
+          <div class="sig-line"></div>
+          <p class="mt-2 mb-0" style="font-size: 0.82rem;"><b>(PENGETUA)</b></p>
+          <p id="printSchoolSig2" style="font-size: 0.78rem;">SMU(A) Khairiah Banggol Setol</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 4: TETAPAN -->
+  <div id="tab-tetapan" class="tab-content d-none">
+    <div class="card border-0 shadow-sm mb-3">
+      <div class="card-body p-3">
+        <h6 class="fw-bold text-navy mb-2 fs-6"><i class="fas fa-id-card me-1"></i>Maklumat Pemohon / Penuntut</h6>
+        <div class="mb-2">
+          <label class="form-label small fw-bold mb-1">Nama Penuh</label>
+          <input type="text" id="settingNama" class="form-control form-control-sm" value="ASRI B MOHD ZAIN">
+        </div>
+        <div class="mb-2">
+          <label class="form-label small fw-bold mb-1">No. Kad Pengenalan</label>
+          <input type="text" id="settingKp" class="form-control form-control-sm" value="A 1778358">
+        </div>
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-3">
+      <div class="card-body p-3">
+        <h6 class="fw-bold text-navy mb-2 fs-6"><i class="fas fa-school me-1"></i>Maklumat Sekolah</h6>
+        <div class="mb-2">
+          <label class="form-label small fw-bold mb-1">Nama Sekolah</label>
+          <input type="text" id="settingSekolah" class="form-control form-control-sm" value="SMU (A) KHAIRIAH BANGGOL SETOL">
+        </div>
+        <div class="mb-2">
+          <label class="form-label small fw-bold mb-1">Alamat / Bandar</label>
+          <input type="text" id="settingAlamat" class="form-control form-control-sm" value="17070 PASIR MAS, KELANTAN">
+        </div>
+        <button class="btn btn-primary btn-sm w-100 mt-2" style="background-color: var(--dark-blue);" onclick="saveSettings()">
+          <i class="fas fa-save me-1"></i> Simpan Tetapan
+        </button>
+      </div>
+    </div>
+
+    <!-- Modul Pengurusan Rekod / Hapus Dalam Tetapan -->
+    <div class="card border-0 shadow-sm mb-3 border-danger">
+      <div class="card-body p-3">
+        <h6 class="fw-bold text-danger mb-2 fs-6"><i class="fas fa-database me-1"></i>Pengurusan Data Rekod</h6>
+        <p class="small text-muted mb-2">Urus atau padam semua rekod tuntutan tersimpan.</p>
+        <div class="d-grid gap-2">
+          <button class="btn btn-outline-primary btn-sm" onclick="switchTab('senarai')">
+            <i class="fas fa-edit me-1"></i> Kemaskini Rekod Tuntutan
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="hapusSemuaData()">
+            <i class="fas fa-trash-alt me-1"></i> Hapus Semua Rekod Tuntutan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- Modal Tambah / Edit Tuntutan -->
@@ -631,21 +479,17 @@
           <div class="mb-3">
             <label class="form-label fw-bold small"><i class="fas fa-map-marker-alt text-primary me-1"></i> Tempat (Pilih Satu)</label>
             <div class="p-2 border rounded bg-light">
-              <div class="form-check mb-1">
+              <div class="form-check">
                 <input class="form-check-input" type="radio" name="tempatOpt" value="YIK" id="optYik" onclick="toggleLain(false)" checked>
                 <label class="form-check-label small" for="optYik">YIK</label>
               </div>
-              <div class="form-check mb-1">
+              <div class="form-check">
                 <input class="form-check-input" type="radio" name="tempatOpt" value="SUK" id="optSuk" onclick="toggleLain(false)">
                 <label class="form-check-label small" for="optSuk">SUK</label>
               </div>
-              <div class="form-check mb-1">
+              <div class="form-check">
                 <input class="form-check-input" type="radio" name="tempatOpt" value="JPN" id="optJpn" onclick="toggleLain(false)">
                 <label class="form-check-label small" for="optJpn">JPN</label>
-              </div>
-              <div class="form-check mb-1">
-                <input class="form-check-input" type="radio" name="tempatOpt" value="MAIK" id="optMaik" onclick="toggleLain(false)">
-                <label class="form-check-label small" for="optMaik">MAIK</label>
               </div>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="tempatOpt" value="Lain-lain" id="optLain" onclick="toggleLain(true)">
@@ -693,69 +537,25 @@
 
   let claimsData = [];
   let modalInstance = null;
-  let currentTab = 'utama';
-  let isBackStepPushed = false;
 
   document.addEventListener("DOMContentLoaded", function() {
     modalInstance = new bootstrap.Modal(document.getElementById('addModal'));
     
+    // Set Tarikh Semasa
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const dateStr = new Date().toLocaleDateString('ms-MY', options);
-    
-    document.getElementById('currentDateBadge').innerText = dateStr;
-    document.getElementById('pcDateBadge').innerText = dateStr;
+    document.getElementById('currentDateBadge').innerText = new Date().toLocaleDateString('ms-MY', options);
 
-    // Sediakan status awal History
-    history.replaceState({ tab: 'utama' }, '', '');
-
-    fetchSettingsRealtime();
+    loadSettings();
     fetchClaimsData();
   });
 
-  // LOGIK REKABENTUK BACK TELEFON STRICT 2-KALI
-  window.addEventListener('popstate', function(event) {
-    if (currentTab !== 'utama') {
-      // Jika menekan Back dari mana-mana tab (Senarai, Cetak, Tetapan), paksa kembali ke Utama
-      switchTab('utama', false);
-      isBackStepPushed = false;
-    } else {
-      // Menekan Back kali kedua di Utama akan keluar dari aplikasi
-      history.back();
-    }
-  });
-
-  // Switch Tab Navigation (Menggunakan replaceState untuk mengelakkan sejarah penukaran tab bertimbun)
-  function switchTab(tabName, isUserAction = true) {
-    if (currentTab === tabName) return;
-
+  // Switch Tab Navigation
+  function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
     document.querySelectorAll('.nav-card-btn').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.pc-nav-item').forEach(el => el.classList.remove('active'));
 
     document.getElementById(`tab-${tabName}`).classList.remove('d-none');
-    
-    const btnMobile = document.getElementById(`btn-${tabName}`);
-    if(btnMobile) btnMobile.classList.add('active');
-
-    const btnPc = document.getElementById(`pc-btn-${tabName}`);
-    if(btnPc) btnPc.classList.add('active');
-
-    currentTab = tabName;
-
-    // Logik Paling Penting: Jika pengguna menukar tab dari Utama, pushState hanya 1 kali
-    if (isUserAction) {
-      if (tabName !== 'utama') {
-        if (!isBackStepPushed) {
-          history.pushState({ tab: tabName }, '', '');
-          isBackStepPushed = true;
-        } else {
-          history.replaceState({ tab: tabName }, '', '');
-        }
-      } else {
-        history.replaceState({ tab: 'utama' }, '', '');
-        isBackStepPushed = false;
-      }
-    }
+    document.getElementById(`btn-${tabName}`).classList.add('active');
 
     if(tabName === 'cetak') {
       renderPrintView();
@@ -770,12 +570,11 @@
     document.getElementById('editDocId').value = '';
     document.getElementById('modalTitle').innerHTML = `<i class="fas fa-file-signature me-2"></i>Tambah Rekod Tuntutan`;
     document.getElementById('claimForm').reset();
-    document.getElementById('optYik').checked = true;
     document.getElementById('inputLain').style.display = 'none';
     modalInstance.show();
   }
 
-  // Fetch Data dari Firestore
+  // Fetch Data dari Firestore (Realtime Listener)
   function fetchClaimsData() {
     db.collection("tuntutan").orderBy("tarikh", "asc").onSnapshot((snapshot) => {
       claimsData = [];
@@ -795,7 +594,7 @@
     tbody.innerHTML = '';
 
     if (claimsData.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">Tiada rekod tuntutan dijumpai.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted">Tiada rekod tuntutan dijumpai.</td></tr>`;
       return;
     }
 
@@ -805,8 +604,16 @@
       tr.innerHTML = `
         <td class="text-center fw-bold">${index + 1}</td>
         <td>${item.perkara}</td>
-        <td class="text-center">${item.tempat}</td>
+        <td>${item.tempat}</td>
         <td class="text-center">${formattedDate}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-outline-primary p-1 px-2 me-1" onclick="editItem('${item.id}')" title="Kemaskini">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger p-1 px-2" onclick="deleteItem('${item.id}')" title="Hapus">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
       `;
       tbody.appendChild(tr);
     });
@@ -826,6 +633,7 @@
 
     document.getElementById('statBulanIni').innerText = bulanIni.length;
 
+    // Destinasi Popular
     const counts = {};
     claimsData.forEach(item => { counts[item.tempat] = (counts[item.tempat] || 0) + 1; });
     let maxTempat = "-";
@@ -848,12 +656,7 @@
     }
 
     if (!perkara || !tarikh || !selectedTempat) {
-      Swal.fire({
-        title: 'Ralat!',
-        text: 'Sila lengkapkan semua medan jawapan.',
-        icon: 'warning',
-        confirmButtonColor: '#0F2C59'
-      });
+      Swal.fire('Ralat!', 'Sila lengkapkan semua medan jawapan.', 'warning');
       return;
     }
 
@@ -869,103 +672,48 @@
     };
 
     if (docId) {
+      // Mod Kemaskini
       db.collection("tuntutan").doc(docId).update(payload)
       .then(() => {
         btn.disabled = false;
         btn.innerHTML = `Simpan Data`;
         modalInstance.hide();
-        Swal.fire({
-          title: 'Berjaya!',
-          text: 'Rekod tuntutan telah dikemaskini.',
-          icon: 'success',
-          confirmButtonColor: '#0F2C59'
-        });
+        Swal.fire('Berjaya!', 'Rekod tuntutan telah dikemaskini.', 'success');
       })
       .catch((error) => {
         btn.disabled = false;
         btn.innerHTML = `Simpan Data`;
-        Swal.fire({
-          title: 'Ralat!',
-          text: error.message,
-          icon: 'error',
-          confirmButtonColor: '#0F2C59'
-        });
+        Swal.fire('Ralat!', error.message, 'error');
       });
     } else {
+      // Mod Tambah Baru
       payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
       db.collection("tuntutan").add(payload)
       .then(() => {
         btn.disabled = false;
         btn.innerHTML = `Simpan Data`;
         modalInstance.hide();
-        Swal.fire({
-          title: 'Berjaya!',
-          text: 'Data tuntutan baru telah disimpan.',
-          icon: 'success',
-          confirmButtonColor: '#0F2C59'
-        });
+        Swal.fire('Berjaya!', 'Data tuntutan baru telah disimpan.', 'success');
       })
       .catch((error) => {
         btn.disabled = false;
         btn.innerHTML = `Simpan Data`;
-        Swal.fire({
-          title: 'Ralat!',
-          text: error.message,
-          icon: 'error',
-          confirmButtonColor: '#0F2C59'
-        });
+        Swal.fire('Ralat!', error.message, 'error');
       });
     }
   }
 
-  // Pengesahan Taip No. BIL Untuk Kemaskini
-  function promptEditByBil() {
-    if (claimsData.length === 0) {
-      Swal.fire({
-        title: 'Tiada Data',
-        text: 'Tiada rekod tuntutan tersimpan untuk dikemaskini.',
-        icon: 'info',
-        confirmButtonColor: '#0F2C59'
-      });
-      return;
-    }
+  // Edit Single Item
+  function editItem(id) {
+    const item = claimsData.find(c => c.id === id);
+    if (!item) return;
 
-    Swal.fire({
-      title: 'Kemaskini Rekod Tuntutan',
-      text: `Sila taip No. BIL (1 hingga ${claimsData.length}) rekod yang ingin dikemaskini:`,
-      input: 'number',
-      inputAttributes: {
-        min: 1,
-        max: claimsData.length,
-        step: 1
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Teruskan',
-      cancelButtonText: 'Batal',
-      confirmButtonColor: '#0F2C59',
-      inputValidator: (value) => {
-        if (!value || value < 1 || value > claimsData.length) {
-          return `Sila masukkan No. BIL yang sah antara 1 hingga ${claimsData.length}`;
-        }
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const bilIndex = parseInt(result.value) - 1;
-        const targetItem = claimsData[bilIndex];
-        if (targetItem) {
-          editItemByObject(targetItem);
-        }
-      }
-    });
-  }
-
-  function editItemByObject(item) {
     document.getElementById('editDocId').value = item.id;
     document.getElementById('modalTitle').innerHTML = `<i class="fas fa-pencil-alt me-2"></i>Kemaskini Rekod Tuntutan`;
     document.getElementById('inputPerkara').value = item.perkara;
     document.getElementById('inputTarikh').value = item.tarikh;
 
-    if (['YIK', 'SUK', 'JPN', 'MAIK'].includes(item.tempat)) {
+    if (['YIK', 'SUK', 'JPN'].includes(item.tempat)) {
       document.querySelector(`input[name="tempatOpt"][value="${item.tempat}"]`).checked = true;
       toggleLain(false);
     } else {
@@ -977,15 +725,34 @@
     modalInstance.show();
   }
 
-  // Hapus Semua Data
+  // Padam Single Item dengan Pengesahan
+  function deleteItem(id) {
+    Swal.fire({
+      title: 'Adakah anda pasti?',
+      text: "Rekod ini akan dihapuskan daripada pangkalan data!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Ya, Hapus!',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        db.collection("tuntutan").doc(id).delete()
+        .then(() => {
+          Swal.fire('Dihapuskan!', 'Rekod telah berjaya dipadam.', 'success');
+        })
+        .catch(error => {
+          Swal.fire('Ralat!', error.message, 'error');
+        });
+      }
+    });
+  }
+
+  // Padam Semua Rekod dalam Tetapan
   function hapusSemuaData() {
     if (claimsData.length === 0) {
-      Swal.fire({
-        title: 'Tiada Data',
-        text: 'Tiada rekod untuk dihapuskan.',
-        icon: 'info',
-        confirmButtonColor: '#0F2C59'
-      });
+      Swal.fire('Tiada Data', 'Tiada rekod untuk dihapuskan.', 'info');
       return;
     }
 
@@ -1007,29 +774,20 @@
         });
 
         batch.commit().then(() => {
-          Swal.fire({
-            title: 'Berjaya!',
-            text: 'Semua rekod tuntutan telah dihapuskan.',
-            icon: 'success',
-            confirmButtonColor: '#0F2C59'
-          });
+          Swal.fire('Berjaya!', 'Semua rekod tuntutan telah dihapuskan.', 'success');
         }).catch(error => {
-          Swal.fire({
-            title: 'Ralat!',
-            text: error.message,
-            icon: 'error',
-            confirmButtonColor: '#0F2C59'
-          });
+          Swal.fire('Ralat!', error.message, 'error');
         });
       }
     });
   }
 
-  // Render Cetak View (15 Baris Minima)
+  // Render Cetak View (Had Minimum 15 Baris untuk 1 Muka Surat)
   function renderPrintView() {
     const tbody = document.getElementById('printTableBody');
     tbody.innerHTML = '';
 
+    // Set minima 15 baris. Jika data melebihi 15, jadual automatik bertambah ikut bilangan data.
     const rowCount = Math.max(15, claimsData.length);
 
     for (let i = 0; i < rowCount; i++) {
@@ -1039,12 +797,12 @@
         tr.innerHTML = `
           <td style="text-align: center;">${i + 1}</td>
           <td>${item.perkara}</td>
-          <td style="text-align: center;">${item.tempat}</td>
+          <td>${item.tempat}</td>
           <td style="text-align: center;">${formatDateDisplayShort(item.tarikh)}</td>
         `;
       } else {
         tr.innerHTML = `
-          <td></td>
+          <td style="text-align: center;">${i + 1}</td>
           <td></td>
           <td></td>
           <td></td>
@@ -1054,77 +812,41 @@
     }
   }
 
-  // === PENGURUSAN TETAPAN MELALUI FIREBASE REALTIME ===
+  // Pengurusan Tetapan Profil & Sekolah
   function saveSettings() {
-    const nama = document.getElementById('settingNama').value.trim();
-    const kp = document.getElementById('settingKp').value.trim();
-    const sekolah = document.getElementById('settingSekolah').value.trim();
-    const alamat = document.getElementById('settingAlamat').value.trim();
+    const nama = document.getElementById('settingNama').value;
+    const kp = document.getElementById('settingKp').value;
+    const sekolah = document.getElementById('settingSekolah').value;
+    const alamat = document.getElementById('settingAlamat').value;
 
-    const btn = document.getElementById('btnSaveSettings');
-    btn.disabled = true;
-    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menyimpan...`;
+    localStorage.setItem('claim_nama', nama);
+    localStorage.setItem('claim_kp', kp);
+    localStorage.setItem('claim_sekolah', sekolah);
+    localStorage.setItem('claim_alamat', alamat);
 
-    const settingsData = {
-      nama: nama,
-      kp: kp,
-      sekolah: sekolah,
-      alamat: alamat,
-      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-    };
-
-    db.collection("settings").doc("user_profile").set(settingsData)
-    .then(() => {
-      btn.disabled = false;
-      btn.innerHTML = `<i class="fas fa-save"></i> Simpan Tetapan`;
-      Swal.fire({
-        title: 'Berjaya!',
-        text: 'Tetapan berjaya disimpan ke awan dan akan dikemaskini di semua peranti.',
-        icon: 'success',
-        confirmButtonColor: '#0F2C59'
-      });
-    })
-    .catch((error) => {
-      btn.disabled = false;
-      btn.innerHTML = `<i class="fas fa-save"></i> Simpan Tetapan`;
-      Swal.fire({
-        title: 'Ralat!',
-        text: error.message,
-        icon: 'error',
-        confirmButtonColor: '#0F2C59'
-      });
-    });
+    loadSettings();
+    Swal.fire('Berjaya!', 'Tetapan berjaya disimpan.', 'success');
   }
 
-  // Listener Realtime Firestore Untuk Tetapan
-  function fetchSettingsRealtime() {
-    db.collection("settings").doc("user_profile").onSnapshot((doc) => {
-      let nama = "ASRI B MOHD ZAIN";
-      let kp = "A 1778358";
-      let sekolah = "SMU (A) KHAIRIAH BANGGOL SETOL";
-      let alamat = "17070 PASIR MAS KELANTAN";
+  function loadSettings() {
+    const nama = localStorage.getItem('claim_nama') || "ASRI B MOHD ZAIN";
+    const kp = localStorage.getItem('claim_kp') || "A 1778358";
+    const sekolah = localStorage.getItem('claim_sekolah') || "SMU (A) KHAIRIAH BANGGOL SETOL";
+    const alamat = localStorage.getItem('claim_alamat') || "17070 PASIR MAS, KELANTAN";
 
-      if (doc.exists) {
-        const data = doc.data();
-        if (data.nama) nama = data.nama;
-        if (data.kp) kp = data.kp;
-        if (data.sekolah) sekolah = data.sekolah;
-        if (data.alamat) alamat = data.alamat;
-      }
+    document.getElementById('settingNama').value = nama;
+    document.getElementById('settingKp').value = kp;
+    document.getElementById('settingSekolah').value = sekolah;
+    document.getElementById('settingAlamat').value = alamat;
 
-      document.getElementById('settingNama').value = nama;
-      document.getElementById('settingKp').value = kp;
-      document.getElementById('settingSekolah').value = sekolah;
-      document.getElementById('settingAlamat').value = alamat;
-
-      document.getElementById('appHeaderTitle').innerText = sekolah;
-      document.getElementById('pcHeaderTitle').innerText = sekolah;
-      document.getElementById('dashSchoolName').innerText = sekolah;
-      document.getElementById('printSchoolTitle').innerText = sekolah;
-      document.getElementById('printSchoolSub').innerText = alamat;
-      document.getElementById('printNamaPemohon').innerText = nama;
-      document.getElementById('printKpPemohon').innerText = kp;
-    });
+    document.getElementById('appHeaderTitle').innerText = sekolah;
+    document.getElementById('dashSchoolName').innerText = sekolah;
+    document.getElementById('printSchoolTitle').innerText = sekolah;
+    document.getElementById('printSchoolSub').innerText = alamat;
+    document.getElementById('printNamaPemohon').innerText = nama;
+    document.getElementById('printKpPemohon').innerText = kp;
+    document.getElementById('printSchoolSig1').innerText = sekolah;
+    document.getElementById('printSchoolSig2').innerText = sekolah;
   }
 
   // Helper Formatter Tarikh
