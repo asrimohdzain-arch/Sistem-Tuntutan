@@ -183,7 +183,7 @@
       }
     }
 
-    /* Gaya Butang Khas Pill Shape (Standard) */
+    /* Gaya Butang Khas Pill Shape */
     .btn-pill-blue {
       background-color: var(--dark-blue);
       color: white !important;
@@ -206,7 +206,6 @@
       box-shadow: 0 5px 12px rgba(15, 44, 89, 0.35);
     }
 
-    /* Gaya Butang Pendek Khas Untuk Tetapan */
     .btn-pill-compact {
       max-width: 280px;
       width: 100%;
@@ -284,7 +283,7 @@
       background-color: #F7FAFC;
     }
 
-    /* === FORMAT CETAKAN A4 (1 MUKA SURAT KEMAS) === */
+    /* === FORMAT CETAKAN A4 (1 MUKA SURAT - 15 BARIS) === */
     @media print {
       @page {
         size: A4 portrait;
@@ -310,14 +309,14 @@
 
     .print-paper-g3 {
       background: white;
-      padding: 22px 25px 60px 25px; /* Ditambah padding bawah bagi memanjangkan garisan bingkai */
+      padding: 20px 25px 45px 25px;
       border: 1px solid #000;
       max-width: 800px;
       margin: 0 auto;
       font-family: 'Times New Roman', Times, serif;
       color: #000;
       box-sizing: border-box;
-      min-height: 980px; /* Memastikan bingkai kotak mengisi seluruh A4 */
+      min-height: 980px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -326,22 +325,22 @@
     .print-header-g3 {
       text-align: center;
       font-weight: bold;
-      line-height: 1.4;
-      margin-bottom: 16px;
+      line-height: 1.35;
+      margin-bottom: 14px;
       text-transform: uppercase;
     }
 
     .print-table-g3 {
       width: 100%;
       border-collapse: collapse;
-      margin: 10px 0;
+      margin: 8px 0;
     }
 
     .print-table-g3 th, .print-table-g3 td {
       border: 1px solid #000;
-      padding: 5px 6px;
-      font-size: 0.85rem;
-      height: 25px; /* Tinggi baris jadual diselaraskan untuk 13 baris */
+      padding: 4px 6px;
+      font-size: 0.82rem;
+      height: 22px; /* Dilaraskan khusus untuk 15 baris agar muat 1 muka surat */
     }
 
     .print-table-g3 th {
@@ -505,11 +504,11 @@
             </div>
 
             <!-- Pihak Pemohon -->
-            <p style="font-size: 0.88rem; line-height: 1.8; margin-bottom: 10px;">
+            <p style="font-size: 0.85rem; line-height: 1.7; margin-bottom: 8px;">
               Saya <span class="dotted-line" id="printNamaPemohon">ASRI B MOHD ZAIN</span> kad pengenalan <span class="dotted-line" id="printKpPemohon">A 1778358</span> telah membelanjakan wang saya sendiri bagi tujuan perjalanan/ membeli keperluan/ peralatan untuk urusan sekolah seperti berikut. :
             </p>
 
-            <!-- Jadual Cetak (Diubah Kepada 13 Baris Minima) -->
+            <!-- Jadual Cetak (15 Baris Minima) -->
             <table class="print-table-g3">
               <thead>
                 <tr>
@@ -520,23 +519,23 @@
                 </tr>
               </thead>
               <tbody id="printTableBody">
-                <!-- 13 Baris Standard -->
+                <!-- 15 Baris Standard -->
               </tbody>
             </table>
 
-            <p style="font-size: 0.85rem; margin-top: 8px; margin-bottom: 15px;">
+            <p style="font-size: 0.82rem; margin-top: 6px; margin-bottom: 12px;">
               Sukacita saya membuat tuntutan kepada pihak sekolah sebagaimana jumlah di atas.
             </p>
           </div>
 
           <!-- Bahagian Tandatangan & Tarikh Selari Di Bawah -->
-          <div style="font-size: 0.85rem; line-height: 1.8; margin-top: 15px;">
+          <div style="font-size: 0.85rem; line-height: 1.7; margin-top: 10px;">
             <div class="d-flex justify-content-between">
               <div style="width: 48%;">T/tangan penuntut .....................................</div>
               <div style="width: 48%; text-align: left;">Tarikh ................................</div>
             </div>
             
-            <div class="d-flex justify-content-between" style="margin-top: 25px; margin-bottom: 10px;">
+            <div class="d-flex justify-content-between" style="margin-top: 20px; margin-bottom: 5px;">
               <div style="width: 48%;">
                 <p class="m-0">Disemak Oleh,</p>
                 <br><br>
@@ -613,7 +612,7 @@
   </div>
 </div>
 
-<!-- Modal Tambah / Edit Tuntutan (Diisikan Pilihan MAIK) -->
+<!-- Modal Tambah / Edit Tuntutan -->
 <div class="modal fade" id="addModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -644,7 +643,6 @@
                 <input class="form-check-input" type="radio" name="tempatOpt" value="JPN" id="optJpn" onclick="toggleLain(false)">
                 <label class="form-check-label small" for="optJpn">JPN</label>
               </div>
-              <!-- Pilihan MAIK Ditambah -->
               <div class="form-check mb-1">
                 <input class="form-check-input" type="radio" name="tempatOpt" value="MAIK" id="optMaik" onclick="toggleLain(false)">
                 <label class="form-check-label small" for="optMaik">MAIK</label>
@@ -706,7 +704,7 @@
     document.getElementById('currentDateBadge').innerText = dateStr;
     document.getElementById('pcDateBadge').innerText = dateStr;
 
-    // Persediaan History Push State Untuk 2-Kali Back Navigation
+    // History Push State Untuk 2-Kali Back Navigation
     history.replaceState({ tab: 'utama' }, '', '');
 
     fetchSettingsRealtime();
@@ -722,7 +720,7 @@
     }
   });
 
-  // Switch Tab Navigation (Lengkap Dengan Push History State)
+  // Switch Tab Navigation
   function switchTab(tabName, pushState = true) {
     if (currentTab === tabName && pushState) return;
 
@@ -823,7 +821,7 @@
     document.getElementById('statDestinasiUtama').innerText = maxTempat;
   }
 
-  // Simpan / Kemaskini Data Tuntutan (SweetAlert2 System Box)
+  // Simpan / Kemaskini Data Tuntutan
   function simpanTuntutan() {
     const docId = document.getElementById('editDocId').value;
     const perkara = document.getElementById('inputPerkara').value.trim();
@@ -905,7 +903,7 @@
     }
   }
 
-  // Pengesahan Taip No. BIL Untuk Kemaskini (SweetAlert2 System Box)
+  // Pengesahan Taip No. BIL Untuk Kemaskini
   function promptEditByBil() {
     if (claimsData.length === 0) {
       Swal.fire({
@@ -964,7 +962,7 @@
     modalInstance.show();
   }
 
-  // Hapus Semua Data (SweetAlert2 System Box)
+  // Hapus Semua Data
   function hapusSemuaData() {
     if (claimsData.length === 0) {
       Swal.fire({
@@ -1012,13 +1010,13 @@
     });
   }
 
-  // Render Cetak View (Diubah Kepada 13 Baris Minima)
+  // Render Cetak View (15 Baris Standard Minima)
   function renderPrintView() {
     const tbody = document.getElementById('printTableBody');
     tbody.innerHTML = '';
 
-    // Tetapan 13 Baris Standard
-    const rowCount = Math.max(13, claimsData.length);
+    // Tetapan 15 Baris Minima
+    const rowCount = Math.max(15, claimsData.length);
 
     for (let i = 0; i < rowCount; i++) {
       const item = claimsData[i];
