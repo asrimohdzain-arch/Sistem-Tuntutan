@@ -340,7 +340,7 @@
       border: 1px solid #000;
       padding: 4px 6px;
       font-size: 0.82rem;
-      height: 22px; /* Dilaraskan khusus untuk 15 baris agar muat 1 muka surat */
+      height: 22px;
     }
 
     .print-table-g3 th {
@@ -694,6 +694,7 @@
   let claimsData = [];
   let modalInstance = null;
   let currentTab = 'utama';
+  let isBackStepPushed = false;
 
   document.addEventListener("DOMContentLoaded", function() {
     modalInstance = new bootstrap.Modal(document.getElementById('addModal'));
@@ -704,25 +705,28 @@
     document.getElementById('currentDateBadge').innerText = dateStr;
     document.getElementById('pcDateBadge').innerText = dateStr;
 
-    // History Push State Untuk 2-Kali Back Navigation
+    // Sediakan status awal History
     history.replaceState({ tab: 'utama' }, '', '');
 
     fetchSettingsRealtime();
     fetchClaimsData();
   });
 
-  // Event Listener Untuk Butang Back Telefon
+  // LOGIK REKABENTUK BACK TELEFON STRICT 2-KALI
   window.addEventListener('popstate', function(event) {
-    if (event.state && event.state.tab) {
-      switchTab(event.state.tab, false);
-    } else {
+    if (currentTab !== 'utama') {
+      // Jika menekan Back dari mana-mana tab (Senarai, Cetak, Tetapan), paksa kembali ke Utama
       switchTab('utama', false);
+      isBackStepPushed = false;
+    } else {
+      // Menekan Back kali kedua di Utama akan keluar dari aplikasi
+      history.back();
     }
   });
 
-  // Switch Tab Navigation
-  function switchTab(tabName, pushState = true) {
-    if (currentTab === tabName && pushState) return;
+  // Switch Tab Navigation (Menggunakan replaceState untuk mengelakkan sejarah penukaran tab bertimbun)
+  function switchTab(tabName, isUserAction = true) {
+    if (currentTab === tabName) return;
 
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
     document.querySelectorAll('.nav-card-btn').forEach(el => el.classList.remove('active'));
@@ -738,8 +742,19 @@
 
     currentTab = tabName;
 
-    if (pushState) {
-      history.pushState({ tab: tabName }, '', '');
+    // Logik Paling Penting: Jika pengguna menukar tab dari Utama, pushState hanya 1 kali
+    if (isUserAction) {
+      if (tabName !== 'utama') {
+        if (!isBackStepPushed) {
+          history.pushState({ tab: tabName }, '', '');
+          isBackStepPushed = true;
+        } else {
+          history.replaceState({ tab: tabName }, '', '');
+        }
+      } else {
+        history.replaceState({ tab: 'utama' }, '', '');
+        isBackStepPushed = false;
+      }
     }
 
     if(tabName === 'cetak') {
@@ -1010,12 +1025,11 @@
     });
   }
 
-  // Render Cetak View (15 Baris Standard Minima)
+  // Render Cetak View (15 Baris Minima)
   function renderPrintView() {
     const tbody = document.getElementById('printTableBody');
     tbody.innerHTML = '';
 
-    // Tetapan 15 Baris Minima
     const rowCount = Math.max(15, claimsData.length);
 
     for (let i = 0; i < rowCount; i++) {
