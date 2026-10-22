@@ -183,7 +183,7 @@
       }
     }
 
-    /* Gaya Butang Khas Pill Shape (Standard) */
+    /* Gaya Butang Khas Pill Shape */
     .btn-pill-blue {
       background-color: var(--dark-blue);
       color: white !important;
@@ -206,7 +206,6 @@
       box-shadow: 0 5px 12px rgba(15, 44, 89, 0.35);
     }
 
-    /* Gaya Butang Pendek Khas Untuk Tetapan */
     .btn-pill-compact {
       max-width: 280px;
       width: 100%;
@@ -249,14 +248,13 @@
       margin-top: 12px;
     }
 
-    /* Kemaskini: Dibuang Birai Biru Muda Pada Kiri Header Jadual */
     .table-title {
       background-color: var(--navy-blue);
       color: white;
       padding: 12px 16px;
       font-weight: bold;
       font-size: 0.88rem;
-      border-left: none; /* Kemaskini untuk buang bingkai biru muda */
+      border-left: none;
     }
 
     .table-custom {
@@ -578,9 +576,8 @@
               <input type="text" id="settingAlamat" class="form-control form-control-sm" value="17070 PASIR MAS KELANTAN">
             </div>
             
-            <!-- Kemaskini: Butang Simpan Dikecilkan & Diselaraskan -->
             <div class="text-center mt-3">
-              <button class="btn-pill-blue btn-pill-compact" onclick="saveSettings()">
+              <button class="btn-pill-blue btn-pill-compact" id="btnSaveSettings" onclick="saveSettings()">
                 <i class="fas fa-save"></i> Simpan Tetapan
               </button>
             </div>
@@ -592,7 +589,6 @@
             <h6 class="fw-bold text-danger mb-2 fs-6"><i class="fas fa-database me-1"></i>Pengurusan Data Rekod</h6>
             <p class="small text-muted mb-3 text-center">Urus atau padam rekod tuntutan tersimpan menggunakan nombor BIL.</p>
             
-            <!-- Kemaskini: Butang Pengurusan Data Dikecilkan & Diselaraskan -->
             <div class="d-flex flex-column gap-2 align-items-center">
               <button class="btn-pill-blue btn-pill-compact" onclick="promptEditByBil()">
                 <i class="fas fa-edit"></i> Kemaskini Rekod Tuntutan
@@ -697,7 +693,8 @@
     document.getElementById('currentDateBadge').innerText = dateStr;
     document.getElementById('pcDateBadge').innerText = dateStr;
 
-    loadSettings();
+    // Realtime Listener Untuk Tetapan Sekolah/Pemohon dari Firebase
+    fetchSettingsRealtime();
     fetchClaimsData();
   });
 
@@ -937,7 +934,7 @@
     });
   }
 
-  // Kemaskini: Render Cetak View (Nombor BIL Hanya Ditampilkan Bagi Data Yang Wujud)
+  // Render Cetak View
   function renderPrintView() {
     const tbody = document.getElementById('printTableBody');
     tbody.innerHTML = '';
@@ -948,7 +945,6 @@
       const item = claimsData[i];
       const tr = document.createElement('tr');
       if (item) {
-        // Papar nombor Bil hanya jika ada data
         tr.innerHTML = `
           <td style="text-align: center;">${i + 1}</td>
           <td>${item.perkara}</td>
@@ -956,7 +952,6 @@
           <td style="text-align: center;">${formatDateDisplayShort(item.tarikh)}</td>
         `;
       } else {
-        // Biarkan kosong jika tiada data (tanpa angka Bil)
         tr.innerHTML = `
           <td></td>
           <td></td>
@@ -968,40 +963,70 @@
     }
   }
 
-  // Pengurusan Tetapan Profil & Sekolah
+  // === PENGURUSAN TETAPAN MELALUI FIREBASE REALTIME ===
   function saveSettings() {
-    const nama = document.getElementById('settingNama').value;
-    const kp = document.getElementById('settingKp').value;
-    const sekolah = document.getElementById('settingSekolah').value;
-    const alamat = document.getElementById('settingAlamat').value;
+    const nama = document.getElementById('settingNama').value.trim();
+    const kp = document.getElementById('settingKp').value.trim();
+    const sekolah = document.getElementById('settingSekolah').value.trim();
+    const alamat = document.getElementById('settingAlamat').value.trim();
 
-    localStorage.setItem('claim_nama', nama);
-    localStorage.setItem('claim_kp', kp);
-    localStorage.setItem('claim_sekolah', sekolah);
-    localStorage.setItem('claim_alamat', alamat);
+    const btn = document.getElementById('btnSaveSettings');
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menyimpan...`;
 
-    loadSettings();
-    Swal.fire('Berjaya!', 'Tetapan berjaya disimpan.', 'success');
+    const settingsData = {
+      nama: nama,
+      kp: kp,
+      sekolah: sekolah,
+      alamat: alamat,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    // Simpan terus ke Firestore koleksi "settings", dokumen "user_profile"
+    db.collection("settings").doc("user_profile").set(settingsData)
+    .then(() => {
+      btn.disabled = false;
+      btn.innerHTML = `<i class="fas fa-save"></i> Simpan Tetapan`;
+      Swal.fire('Berjaya!', 'Tetapan berjaya disimpan ke awan dan akan dikemaskini di semua peranti.', 'success');
+    })
+    .catch((error) => {
+      btn.disabled = false;
+      btn.innerHTML = `<i class="fas fa-save"></i> Simpan Tetapan`;
+      Swal.fire('Ralat!', error.message, 'error');
+    });
   }
 
-  function loadSettings() {
-    const nama = localStorage.getItem('claim_nama') || "ASRI B MOHD ZAIN";
-    const kp = localStorage.getItem('claim_kp') || "A 1778358";
-    const sekolah = localStorage.getItem('claim_sekolah') || "SMU (A) KHAIRIAH BANGGOL SETOL";
-    const alamat = localStorage.getItem('claim_alamat') || "17070 PASIR MAS KELANTAN";
+  // Listener Realtime Firestore Untuk Tetapan
+  function fetchSettingsRealtime() {
+    db.collection("settings").doc("user_profile").onSnapshot((doc) => {
+      let nama = "ASRI B MOHD ZAIN";
+      let kp = "A 1778358";
+      let sekolah = "SMU (A) KHAIRIAH BANGGOL SETOL";
+      let alamat = "17070 PASIR MAS KELANTAN";
 
-    document.getElementById('settingNama').value = nama;
-    document.getElementById('settingKp').value = kp;
-    document.getElementById('settingSekolah').value = sekolah;
-    document.getElementById('settingAlamat').value = alamat;
+      if (doc.exists) {
+        const data = doc.data();
+        if (data.nama) nama = data.nama;
+        if (data.kp) kp = data.kp;
+        if (data.sekolah) sekolah = data.sekolah;
+        if (data.alamat) alamat = data.alamat;
+      }
 
-    document.getElementById('appHeaderTitle').innerText = sekolah;
-    document.getElementById('pcHeaderTitle').innerText = sekolah;
-    document.getElementById('dashSchoolName').innerText = sekolah;
-    document.getElementById('printSchoolTitle').innerText = sekolah;
-    document.getElementById('printSchoolSub').innerText = alamat;
-    document.getElementById('printNamaPemohon').innerText = nama;
-    document.getElementById('printKpPemohon').innerText = kp;
+      // Kemaskini Medan Tetapan
+      document.getElementById('settingNama').value = nama;
+      document.getElementById('settingKp').value = kp;
+      document.getElementById('settingSekolah').value = sekolah;
+      document.getElementById('settingAlamat').value = alamat;
+
+      // Kemaskini Paparan Antaramuka di PC & Telefon Bimbit secara serentak
+      document.getElementById('appHeaderTitle').innerText = sekolah;
+      document.getElementById('pcHeaderTitle').innerText = sekolah;
+      document.getElementById('dashSchoolName').innerText = sekolah;
+      document.getElementById('printSchoolTitle').innerText = sekolah;
+      document.getElementById('printSchoolSub').innerText = alamat;
+      document.getElementById('printNamaPemohon').innerText = nama;
+      document.getElementById('printKpPemohon').innerText = kp;
+    });
   }
 
   // Helper Formatter Tarikh
