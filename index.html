@@ -183,7 +183,7 @@
       }
     }
 
-    /* Gaya Butang Khas Pill Shape */
+    /* Gaya Butang Khas Pill Shape (Standard) */
     .btn-pill-blue {
       background-color: var(--dark-blue);
       color: white !important;
@@ -206,6 +206,7 @@
       box-shadow: 0 5px 12px rgba(15, 44, 89, 0.35);
     }
 
+    /* Gaya Butang Pendek Khas Untuk Tetapan */
     .btn-pill-compact {
       max-width: 280px;
       width: 100%;
@@ -283,11 +284,11 @@
       background-color: #F7FAFC;
     }
 
-    /* Format Cetakan */
+    /* === FORMAT CETAKAN A4 (1 MUKA SURAT KEMAS) === */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 8mm;
+        margin: 6mm 8mm;
       }
       body * {
         visibility: hidden;
@@ -309,34 +310,38 @@
 
     .print-paper-g3 {
       background: white;
-      padding: 20px 25px 35px 25px;
+      padding: 22px 25px 60px 25px; /* Ditambah padding bawah bagi memanjangkan garisan bingkai */
       border: 1px solid #000;
       max-width: 800px;
       margin: 0 auto;
       font-family: 'Times New Roman', Times, serif;
       color: #000;
       box-sizing: border-box;
+      min-height: 980px; /* Memastikan bingkai kotak mengisi seluruh A4 */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .print-header-g3 {
       text-align: center;
       font-weight: bold;
       line-height: 1.4;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       text-transform: uppercase;
     }
 
     .print-table-g3 {
       width: 100%;
       border-collapse: collapse;
-      margin: 12px 0;
+      margin: 10px 0;
     }
 
     .print-table-g3 th, .print-table-g3 td {
       border: 1px solid #000;
-      padding: 4px 6px;
+      padding: 5px 6px;
       font-size: 0.85rem;
-      height: 22px;
+      height: 25px; /* Tinggi baris jadual diselaraskan untuk 13 baris */
     }
 
     .print-table-g3 th {
@@ -443,7 +448,7 @@
         </div>
 
         <div class="stat-card">
-          <h6>Destinasi Utama (YIK/SUK/JPN)</h6>
+          <h6>Destinasi Utama (YIK/SUK/JPN/MAIK)</h6>
           <h2 id="statDestinasiUtama" style="font-size: 1.3rem;">-</h2>
         </div>
       </div>
@@ -490,46 +495,48 @@
         </div>
 
         <div id="printArea" class="print-paper-g3">
-          <!-- Header Cetak -->
-          <div class="print-header-g3">
-            <span id="printSchoolTitle" style="font-size: 1.1rem;">SMU (A) KHAIRIAH BANGGOL SETOL</span><br>
-            <span id="printSchoolSub" style="font-size: 1rem;">17070 PASIR MAS KELANTAN</span><br><br>
-            <u style="font-size: 1.05rem;">BORANG AKAUN RUNCIT</u><br><br>
-            <u style="font-size: 1rem;">TUNTUTAN PERBELANJAAN/ PERJALANAN</u>
+          <div>
+            <!-- Header Cetak -->
+            <div class="print-header-g3">
+              <span id="printSchoolTitle" style="font-size: 1.1rem;">SMU (A) KHAIRIAH BANGGOL SETOL</span><br>
+              <span id="printSchoolSub" style="font-size: 1rem;">17070 PASIR MAS KELANTAN</span><br><br>
+              <u style="font-size: 1.05rem;">BORANG AKAUN RUNCIT</u><br><br>
+              <u style="font-size: 1rem;">TUNTUTAN PERBELANJAAN/ PERJALANAN</u>
+            </div>
+
+            <!-- Pihak Pemohon -->
+            <p style="font-size: 0.88rem; line-height: 1.8; margin-bottom: 10px;">
+              Saya <span class="dotted-line" id="printNamaPemohon">ASRI B MOHD ZAIN</span> kad pengenalan <span class="dotted-line" id="printKpPemohon">A 1778358</span> telah membelanjakan wang saya sendiri bagi tujuan perjalanan/ membeli keperluan/ peralatan untuk urusan sekolah seperti berikut. :
+            </p>
+
+            <!-- Jadual Cetak (Diubah Kepada 13 Baris Minima) -->
+            <table class="print-table-g3">
+              <thead>
+                <tr>
+                  <th style="width: 10%;">BIL</th>
+                  <th style="width: 48%;">PERKARA</th>
+                  <th style="width: 22%;">TEMPAT/ JUMLAH</th>
+                  <th style="width: 20%;">TARIKH</th>
+                </tr>
+              </thead>
+              <tbody id="printTableBody">
+                <!-- 13 Baris Standard -->
+              </tbody>
+            </table>
+
+            <p style="font-size: 0.85rem; margin-top: 8px; margin-bottom: 15px;">
+              Sukacita saya membuat tuntutan kepada pihak sekolah sebagaimana jumlah di atas.
+            </p>
           </div>
 
-          <!-- Pihak Pemohon -->
-          <p style="font-size: 0.88rem; line-height: 1.8; margin-bottom: 10px;">
-            Saya <span class="dotted-line" id="printNamaPemohon">ASRI B MOHD ZAIN</span> kad pengenalan <span class="dotted-line" id="printKpPemohon">A 1778358</span> telah membelanjakan wang saya sendiri bagi tujuan perjalanan/ membeli keperluan/ peralatan untuk urusan sekolah seperti berikut. :
-          </p>
-
-          <!-- Jadual Cetak -->
-          <table class="print-table-g3">
-            <thead>
-              <tr>
-                <th style="width: 10%;">BIL</th>
-                <th style="width: 48%;">PERKARA</th>
-                <th style="width: 22%;">TEMPAT/ JUMLAH</th>
-                <th style="width: 20%;">TARIKH</th>
-              </tr>
-            </thead>
-            <tbody id="printTableBody">
-              <!-- Minima 15 Baris -->
-            </tbody>
-          </table>
-
-          <p style="font-size: 0.85rem; margin-top: 8px; margin-bottom: 15px;">
-            Sukacita saya membuat tuntutan kepada pihak sekolah sebagaimana jumlah di atas.
-          </p>
-
-          <!-- Bahagian Tandatangan & Tarikh Selari -->
-          <div style="font-size: 0.85rem; line-height: 1.8;">
+          <!-- Bahagian Tandatangan & Tarikh Selari Di Bawah -->
+          <div style="font-size: 0.85rem; line-height: 1.8; margin-top: 15px;">
             <div class="d-flex justify-content-between">
               <div style="width: 48%;">T/tangan penuntut .....................................</div>
               <div style="width: 48%; text-align: left;">Tarikh ................................</div>
             </div>
             
-            <div class="d-flex justify-content-between" style="margin-top: 20px; margin-bottom: 15px;">
+            <div class="d-flex justify-content-between" style="margin-top: 25px; margin-bottom: 10px;">
               <div style="width: 48%;">
                 <p class="m-0">Disemak Oleh,</p>
                 <br><br>
@@ -606,7 +613,7 @@
   </div>
 </div>
 
-<!-- Modal Tambah / Edit Tuntutan -->
+<!-- Modal Tambah / Edit Tuntutan (Diisikan Pilihan MAIK) -->
 <div class="modal fade" id="addModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -625,17 +632,22 @@
           <div class="mb-3">
             <label class="form-label fw-bold small"><i class="fas fa-map-marker-alt text-primary me-1"></i> Tempat (Pilih Satu)</label>
             <div class="p-2 border rounded bg-light">
-              <div class="form-check">
+              <div class="form-check mb-1">
                 <input class="form-check-input" type="radio" name="tempatOpt" value="YIK" id="optYik" onclick="toggleLain(false)" checked>
                 <label class="form-check-label small" for="optYik">YIK</label>
               </div>
-              <div class="form-check">
+              <div class="form-check mb-1">
                 <input class="form-check-input" type="radio" name="tempatOpt" value="SUK" id="optSuk" onclick="toggleLain(false)">
                 <label class="form-check-label small" for="optSuk">SUK</label>
               </div>
-              <div class="form-check">
+              <div class="form-check mb-1">
                 <input class="form-check-input" type="radio" name="tempatOpt" value="JPN" id="optJpn" onclick="toggleLain(false)">
                 <label class="form-check-label small" for="optJpn">JPN</label>
+              </div>
+              <!-- Pilihan MAIK Ditambah -->
+              <div class="form-check mb-1">
+                <input class="form-check-input" type="radio" name="tempatOpt" value="MAIK" id="optMaik" onclick="toggleLain(false)">
+                <label class="form-check-label small" for="optMaik">MAIK</label>
               </div>
               <div class="form-check">
                 <input class="form-check-input" type="radio" name="tempatOpt" value="Lain-lain" id="optLain" onclick="toggleLain(true)">
@@ -683,6 +695,7 @@
 
   let claimsData = [];
   let modalInstance = null;
+  let currentTab = 'utama';
 
   document.addEventListener("DOMContentLoaded", function() {
     modalInstance = new bootstrap.Modal(document.getElementById('addModal'));
@@ -693,13 +706,26 @@
     document.getElementById('currentDateBadge').innerText = dateStr;
     document.getElementById('pcDateBadge').innerText = dateStr;
 
-    // Realtime Listener Untuk Tetapan Sekolah/Pemohon dari Firebase
+    // Persediaan History Push State Untuk 2-Kali Back Navigation
+    history.replaceState({ tab: 'utama' }, '', '');
+
     fetchSettingsRealtime();
     fetchClaimsData();
   });
 
-  // Switch Tab Navigation
-  function switchTab(tabName) {
+  // Event Listener Untuk Butang Back Telefon
+  window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.tab) {
+      switchTab(event.state.tab, false);
+    } else {
+      switchTab('utama', false);
+    }
+  });
+
+  // Switch Tab Navigation (Lengkap Dengan Push History State)
+  function switchTab(tabName, pushState = true) {
+    if (currentTab === tabName && pushState) return;
+
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
     document.querySelectorAll('.nav-card-btn').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.pc-nav-item').forEach(el => el.classList.remove('active'));
@@ -711,6 +737,12 @@
 
     const btnPc = document.getElementById(`pc-btn-${tabName}`);
     if(btnPc) btnPc.classList.add('active');
+
+    currentTab = tabName;
+
+    if (pushState) {
+      history.pushState({ tab: tabName }, '', '');
+    }
 
     if(tabName === 'cetak') {
       renderPrintView();
@@ -725,6 +757,7 @@
     document.getElementById('editDocId').value = '';
     document.getElementById('modalTitle').innerHTML = `<i class="fas fa-file-signature me-2"></i>Tambah Rekod Tuntutan`;
     document.getElementById('claimForm').reset();
+    document.getElementById('optYik').checked = true;
     document.getElementById('inputLain').style.display = 'none';
     modalInstance.show();
   }
@@ -790,7 +823,7 @@
     document.getElementById('statDestinasiUtama').innerText = maxTempat;
   }
 
-  // Simpan / Kemaskini Data Tuntutan
+  // Simpan / Kemaskini Data Tuntutan (SweetAlert2 System Box)
   function simpanTuntutan() {
     const docId = document.getElementById('editDocId').value;
     const perkara = document.getElementById('inputPerkara').value.trim();
@@ -802,7 +835,12 @@
     }
 
     if (!perkara || !tarikh || !selectedTempat) {
-      Swal.fire('Ralat!', 'Sila lengkapkan semua medan jawapan.', 'warning');
+      Swal.fire({
+        title: 'Ralat!',
+        text: 'Sila lengkapkan semua medan jawapan.',
+        icon: 'warning',
+        confirmButtonColor: '#0F2C59'
+      });
       return;
     }
 
@@ -823,12 +861,22 @@
         btn.disabled = false;
         btn.innerHTML = `Simpan Data`;
         modalInstance.hide();
-        Swal.fire('Berjaya!', 'Rekod tuntutan telah dikemaskini.', 'success');
+        Swal.fire({
+          title: 'Berjaya!',
+          text: 'Rekod tuntutan telah dikemaskini.',
+          icon: 'success',
+          confirmButtonColor: '#0F2C59'
+        });
       })
       .catch((error) => {
         btn.disabled = false;
         btn.innerHTML = `Simpan Data`;
-        Swal.fire('Ralat!', error.message, 'error');
+        Swal.fire({
+          title: 'Ralat!',
+          text: error.message,
+          icon: 'error',
+          confirmButtonColor: '#0F2C59'
+        });
       });
     } else {
       payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
@@ -837,20 +885,35 @@
         btn.disabled = false;
         btn.innerHTML = `Simpan Data`;
         modalInstance.hide();
-        Swal.fire('Berjaya!', 'Data tuntutan baru telah disimpan.', 'success');
+        Swal.fire({
+          title: 'Berjaya!',
+          text: 'Data tuntutan baru telah disimpan.',
+          icon: 'success',
+          confirmButtonColor: '#0F2C59'
+        });
       })
       .catch((error) => {
         btn.disabled = false;
         btn.innerHTML = `Simpan Data`;
-        Swal.fire('Ralat!', error.message, 'error');
+        Swal.fire({
+          title: 'Ralat!',
+          text: error.message,
+          icon: 'error',
+          confirmButtonColor: '#0F2C59'
+        });
       });
     }
   }
 
-  // Pengesahan Taip No. BIL Untuk Kemaskini
+  // Pengesahan Taip No. BIL Untuk Kemaskini (SweetAlert2 System Box)
   function promptEditByBil() {
     if (claimsData.length === 0) {
-      Swal.fire('Tiada Data', 'Tiada rekod tuntutan tersimpan untuk dikemaskini.', 'info');
+      Swal.fire({
+        title: 'Tiada Data',
+        text: 'Tiada rekod tuntutan tersimpan untuk dikemaskini.',
+        icon: 'info',
+        confirmButtonColor: '#0F2C59'
+      });
       return;
     }
 
@@ -889,7 +952,7 @@
     document.getElementById('inputPerkara').value = item.perkara;
     document.getElementById('inputTarikh').value = item.tarikh;
 
-    if (['YIK', 'SUK', 'JPN'].includes(item.tempat)) {
+    if (['YIK', 'SUK', 'JPN', 'MAIK'].includes(item.tempat)) {
       document.querySelector(`input[name="tempatOpt"][value="${item.tempat}"]`).checked = true;
       toggleLain(false);
     } else {
@@ -901,10 +964,15 @@
     modalInstance.show();
   }
 
-  // Hapus Semua Data
+  // Hapus Semua Data (SweetAlert2 System Box)
   function hapusSemuaData() {
     if (claimsData.length === 0) {
-      Swal.fire('Tiada Data', 'Tiada rekod untuk dihapuskan.', 'info');
+      Swal.fire({
+        title: 'Tiada Data',
+        text: 'Tiada rekod untuk dihapuskan.',
+        icon: 'info',
+        confirmButtonColor: '#0F2C59'
+      });
       return;
     }
 
@@ -926,20 +994,31 @@
         });
 
         batch.commit().then(() => {
-          Swal.fire('Berjaya!', 'Semua rekod tuntutan telah dihapuskan.', 'success');
+          Swal.fire({
+            title: 'Berjaya!',
+            text: 'Semua rekod tuntutan telah dihapuskan.',
+            icon: 'success',
+            confirmButtonColor: '#0F2C59'
+          });
         }).catch(error => {
-          Swal.fire('Ralat!', error.message, 'error');
+          Swal.fire({
+            title: 'Ralat!',
+            text: error.message,
+            icon: 'error',
+            confirmButtonColor: '#0F2C59'
+          });
         });
       }
     });
   }
 
-  // Render Cetak View
+  // Render Cetak View (Diubah Kepada 13 Baris Minima)
   function renderPrintView() {
     const tbody = document.getElementById('printTableBody');
     tbody.innerHTML = '';
 
-    const rowCount = Math.max(15, claimsData.length);
+    // Tetapan 13 Baris Standard
+    const rowCount = Math.max(13, claimsData.length);
 
     for (let i = 0; i < rowCount; i++) {
       const item = claimsData[i];
@@ -982,17 +1061,26 @@
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     };
 
-    // Simpan terus ke Firestore koleksi "settings", dokumen "user_profile"
     db.collection("settings").doc("user_profile").set(settingsData)
     .then(() => {
       btn.disabled = false;
       btn.innerHTML = `<i class="fas fa-save"></i> Simpan Tetapan`;
-      Swal.fire('Berjaya!', 'Tetapan berjaya disimpan ke awan dan akan dikemaskini di semua peranti.', 'success');
+      Swal.fire({
+        title: 'Berjaya!',
+        text: 'Tetapan berjaya disimpan ke awan dan akan dikemaskini di semua peranti.',
+        icon: 'success',
+        confirmButtonColor: '#0F2C59'
+      });
     })
     .catch((error) => {
       btn.disabled = false;
       btn.innerHTML = `<i class="fas fa-save"></i> Simpan Tetapan`;
-      Swal.fire('Ralat!', error.message, 'error');
+      Swal.fire({
+        title: 'Ralat!',
+        text: error.message,
+        icon: 'error',
+        confirmButtonColor: '#0F2C59'
+      });
     });
   }
 
@@ -1012,13 +1100,11 @@
         if (data.alamat) alamat = data.alamat;
       }
 
-      // Kemaskini Medan Tetapan
       document.getElementById('settingNama').value = nama;
       document.getElementById('settingKp').value = kp;
       document.getElementById('settingSekolah').value = sekolah;
       document.getElementById('settingAlamat').value = alamat;
 
-      // Kemaskini Paparan Antaramuka di PC & Telefon Bimbit secara serentak
       document.getElementById('appHeaderTitle').innerText = sekolah;
       document.getElementById('pcHeaderTitle').innerText = sekolah;
       document.getElementById('dashSchoolName').innerText = sekolah;
