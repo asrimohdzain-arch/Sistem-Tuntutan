@@ -29,7 +29,7 @@
       padding: 0;
     }
 
-    /* === REKABENTUK PC / DESKTOP (Gambar 4 Style Layout) === */
+    /* === REKABENTUK PC / DESKTOP === */
     @media (min-width: 992px) {
       .app-layout-wrapper {
         display: flex;
@@ -183,7 +183,7 @@
       }
     }
 
-    /* Gaya Butang Khas (Pill Shape Gambar 2) */
+    /* Gaya Butang Khas Pill Shape */
     .btn-pill-blue {
       background-color: var(--dark-blue);
       color: white !important;
@@ -275,11 +275,11 @@
       background-color: #F7FAFC;
     }
 
-    /* === FORMAT CETAKAN AKUR GAMBAR 3 (100% REPLICA) === */
+    /* === FORMAT CETAKAN DENGAN PADISAN BINGKAI LENGKAP === */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 10mm;
+        margin: 8mm;
       }
       body * {
         visibility: hidden;
@@ -293,7 +293,6 @@
         top: 0;
         width: 100%;
         box-shadow: none !important;
-        padding: 0 !important;
       }
       .no-print {
         display: none !important;
@@ -302,7 +301,8 @@
 
     .print-paper-g3 {
       background: white;
-      padding: 25px 30px;
+      /* Padding dalaman untuk mencipta jarak ruang dengan garisan kotak luar */
+      padding: 20px 25px 35px 25px;
       border: 1px solid #000;
       max-width: 800px;
       margin: 0 auto;
@@ -315,21 +315,21 @@
       text-align: center;
       font-weight: bold;
       line-height: 1.4;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       text-transform: uppercase;
     }
 
     .print-table-g3 {
       width: 100%;
       border-collapse: collapse;
-      margin: 15px 0;
+      margin: 12px 0;
     }
 
     .print-table-g3 th, .print-table-g3 td {
       border: 1px solid #000;
-      padding: 5px 8px;
+      padding: 4px 6px;
       font-size: 0.85rem;
-      height: 24px;
+      height: 22px;
     }
 
     .print-table-g3 th {
@@ -340,7 +340,7 @@
     .dotted-line {
       border-bottom: 1px dotted #000;
       display: inline-block;
-      min-width: 150px;
+      min-width: 140px;
       padding: 0 5px;
     }
   </style>
@@ -349,7 +349,7 @@
 
 <div class="app-layout-wrapper">
   
-  <!-- DESKTOP SIDEBAR (GAYA PC GAMBAR 4) -->
+  <!-- DESKTOP SIDEBAR -->
   <div class="pc-sidebar no-print">
     <div class="pc-brand-box">
       <h5>TUNTUTAN</h5>
@@ -374,7 +374,7 @@
   <!-- KANDUNGAN UTAMA / MAIN CONTENT -->
   <div class="pc-main-content">
     
-    <!-- DESKTOP TOP BANNER (GAYA GAMBAR 4) -->
+    <!-- DESKTOP TOP BANNER -->
     <div class="pc-top-banner no-print">
       <div>
         <h4 class="fw-bold mb-1" id="pcHeaderTitle">SMU(A) Khairiah Banggol Setol</h4>
@@ -387,7 +387,7 @@
 
     <div class="app-container">
       
-      <!-- MOBILE HEADER (HANYA MUNCUL DI TELEFON) -->
+      <!-- MOBILE HEADER -->
       <div class="app-header text-center mobile-only-header no-print">
         <h5 class="header-single-line" id="appHeaderTitle">SMU(A) KHAIRIAH BANGGOL SETOL</h5>
         <p class="small text-white-50 m-0" style="font-size: 0.78rem;">Sistem Rekod Tuntutan Sekolah</p>
@@ -441,7 +441,7 @@
         </div>
       </div>
 
-      <!-- TAB 2: SENARAI TUNTUTAN (TANPA KOLUM TINDAKAN) -->
+      <!-- TAB 2: SENARAI TUNTUTAN -->
       <div id="tab-senarai" class="tab-content d-none">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h6 class="fw-bold m-0 text-navy fs-6"><i class="fas fa-table me-1"></i>Rekod Tuntutan</h6>
@@ -474,7 +474,7 @@
         </div>
       </div>
 
-      <!-- TAB 3: CETAK TUNTUTAN (100% SAMA GAMBAR 3) -->
+      <!-- TAB 3: CETAK TUNTUTAN -->
       <div id="tab-cetak" class="tab-content d-none">
         <div class="no-print mb-3 text-end">
           <button class="btn-pill-blue" onclick="window.print()">
@@ -483,7 +483,7 @@
         </div>
 
         <div id="printArea" class="print-paper-g3">
-          <!-- Header Gambar 3 -->
+          <!-- Header Cetak -->
           <div class="print-header-g3">
             <span id="printSchoolTitle" style="font-size: 1.1rem;">SMU (A) KHAIRIAH BANGGOL SETOL</span><br>
             <span id="printSchoolSub" style="font-size: 1rem;">17070 PASIR MAS KELANTAN</span><br><br>
@@ -491,12 +491,12 @@
             <u style="font-size: 1rem;">TUNTUTAN PERBELANJAAN/ PERJALANAN</u>
           </div>
 
-          <!-- Pihak Pemohon Gambar 3 -->
-          <p style="font-size: 0.9rem; line-height: 1.8; margin-bottom: 12px;">
+          <!-- Pihak Pemohon -->
+          <p style="font-size: 0.88rem; line-height: 1.8; margin-bottom: 10px;">
             Saya <span class="dotted-line" id="printNamaPemohon">ASRI B MOHD ZAIN</span> kad pengenalan <span class="dotted-line" id="printKpPemohon">A 1778358</span> telah membelanjakan wang saya sendiri bagi tujuan perjalanan/ membeli keperluan/ peralatan untuk urusan sekolah seperti berikut. :
           </p>
 
-          <!-- Jadual Gambar 3 -->
+          <!-- Jadual Cetak -->
           <table class="print-table-g3">
             <thead>
               <tr>
@@ -507,30 +507,30 @@
               </tr>
             </thead>
             <tbody id="printTableBody">
-              <!-- Minima 15 Baris / Dinamik -->
+              <!-- Minima 15 Baris -->
             </tbody>
           </table>
 
-          <p style="font-size: 0.88rem; margin-top: 10px; margin-bottom: 25px;">
+          <p style="font-size: 0.85rem; margin-top: 8px; margin-bottom: 15px;">
             Sukacita saya membuat tuntutan kepada pihak sekolah sebagaimana jumlah di atas.
           </p>
 
-          <!-- Tandatangan Gambar 3 -->
-          <div style="font-size: 0.88rem; line-height: 2;">
+          <!-- Bahagian Tandatangan & Tarikh Selari -->
+          <div style="font-size: 0.85rem; line-height: 1.8;">
             <div class="d-flex justify-content-between">
-              <div>T/tangan penuntut .....................................</div>
-              <div>Tarikh ................................</div>
+              <div style="width: 48%;">T/tangan penuntut .....................................</div>
+              <div style="width: 48%; text-align: left;">Tarikh ................................</div>
             </div>
             
-            <div class="d-flex justify-content-between" style="margin-top: 25px;">
-              <div style="width: 45%;">
+            <div class="d-flex justify-content-between" style="margin-top: 20px; margin-bottom: 15px;">
+              <div style="width: 48%;">
                 <p class="m-0">Disemak Oleh,</p>
                 <br><br>
                 <p class="m-0">...........................................</p>
                 <p class="m-0"><b>(BENDAHARI SMUAK)</b></p>
               </div>
 
-              <div style="width: 45%;">
+              <div style="width: 48%;">
                 <p class="m-0">Diluluskan Oleh,</p>
                 <br><br>
                 <p class="m-0">...........................................</p>
@@ -566,10 +566,9 @@
             </div>
             <div class="mb-2">
               <label class="form-label small fw-bold mb-1">Alamat / Bandar</label>
-              <input type="text" id="settingAlamat" class="form-control form-control-sm" value="17070 PASIR MAS, KELANTAN">
+              <input type="text" id="settingAlamat" class="form-control form-control-sm" value="17070 PASIR MAS KELANTAN">
             </div>
             
-            <!-- Butang Simpan Tetapan (Gaya Pill Gambar 2) -->
             <div class="text-center mt-3">
               <button class="btn-pill-blue w-100" onclick="saveSettings()">
                 <i class="fas fa-save"></i> Simpan Tetapan
@@ -578,19 +577,16 @@
           </div>
         </div>
 
-        <!-- Modul Pengurusan Data Rekod (Gaya Pill Gambar 2) -->
         <div class="card border-0 shadow-sm mb-3 border-danger">
           <div class="card-body p-3">
             <h6 class="fw-bold text-danger mb-2 fs-6"><i class="fas fa-database me-1"></i>Pengurusan Data Rekod</h6>
             <p class="small text-muted mb-3">Urus atau padam rekod tuntutan tersimpan menggunakan nombor BIL.</p>
             
             <div class="d-flex flex-column gap-2">
-              <!-- Butang Kemaskini (Gaya Pill Gambar 2) -->
               <button class="btn-pill-blue" onclick="promptEditByBil()">
                 <i class="fas fa-edit"></i> Kemaskini Rekod Tuntutan
               </button>
 
-              <!-- Butang Hapus Semua (Gaya Pill Merah/Biru Gambar 2) -->
               <button class="btn-pill-blue" style="background-color: #9B2C2C; border-color: #C53030;" onclick="hapusSemuaData()">
                 <i class="fas fa-trash-alt"></i> Hapus Semua Rekod Tuntutan
               </button>
@@ -694,7 +690,7 @@
     fetchClaimsData();
   });
 
-  // Switch Tab Navigation (Menyesuaikan Mudah Alih & Desktop)
+  // Switch Tab Navigation
   function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
     document.querySelectorAll('.nav-card-btn').forEach(el => el.classList.remove('active'));
@@ -725,7 +721,7 @@
     modalInstance.show();
   }
 
-  // Fetch Data dari Firestore (Realtime Listener)
+  // Fetch Data dari Firestore
   function fetchClaimsData() {
     db.collection("tuntutan").orderBy("tarikh", "asc").onSnapshot((snapshot) => {
       claimsData = [];
@@ -739,7 +735,7 @@
     });
   }
 
-  // Render Table Senarai Tuntutan (KOLUM TINDAKAN DIBUANG)
+  // Render Table Senarai Tuntutan
   function renderTable() {
     const tbody = document.getElementById('claimTableBody');
     tbody.innerHTML = '';
@@ -843,7 +839,7 @@
     }
   }
 
-  // Pengesahan Taip No. BIL Untuk Kemaskini (Dalam Tetapan)
+  // Pengesahan Taip No. BIL Untuk Kemaskini
   function promptEditByBil() {
     if (claimsData.length === 0) {
       Swal.fire('Tiada Data', 'Tiada rekod tuntutan tersimpan untuk dikemaskini.', 'info');
@@ -897,7 +893,7 @@
     modalInstance.show();
   }
 
-  // Hapus Semua Data Rekod dalam Tetapan
+  // Hapus Semua Data
   function hapusSemuaData() {
     if (claimsData.length === 0) {
       Swal.fire('Tiada Data', 'Tiada rekod untuk dihapuskan.', 'info');
@@ -930,7 +926,7 @@
     });
   }
 
-  // Render Cetak View (Bentuk Akhir 100% Seperti Gambar 3)
+  // Render Cetak View
   function renderPrintView() {
     const tbody = document.getElementById('printTableBody');
     tbody.innerHTML = '';
