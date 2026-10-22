@@ -183,7 +183,7 @@
       }
     }
 
-    /* Gaya Butang Khas Pill Shape */
+    /* Gaya Butang Khas Pill Shape (Standard) */
     .btn-pill-blue {
       background-color: var(--dark-blue);
       color: white !important;
@@ -204,6 +204,15 @@
       background-color: var(--navy-blue);
       transform: translateY(-2px);
       box-shadow: 0 5px 12px rgba(15, 44, 89, 0.35);
+    }
+
+    /* Gaya Butang Pendek Khas Untuk Tetapan */
+    .btn-pill-compact {
+      max-width: 280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 8px 20px;
+      font-size: 0.85rem;
     }
 
     /* Dashboard & Stat Cards */
@@ -240,13 +249,14 @@
       margin-top: 12px;
     }
 
+    /* Kemaskini: Dibuang Birai Biru Muda Pada Kiri Header Jadual */
     .table-title {
       background-color: var(--navy-blue);
       color: white;
       padding: 12px 16px;
       font-weight: bold;
       font-size: 0.88rem;
-      border-left: 4px solid #4299E1;
+      border-left: none; /* Kemaskini untuk buang bingkai biru muda */
     }
 
     .table-custom {
@@ -275,7 +285,7 @@
       background-color: #F7FAFC;
     }
 
-    /* === FORMAT CETAKAN DENGAN PADISAN BINGKAI LENGKAP === */
+    /* Format Cetakan */
     @media print {
       @page {
         size: A4 portrait;
@@ -301,7 +311,6 @@
 
     .print-paper-g3 {
       background: white;
-      /* Padding dalaman untuk mencipta jarak ruang dengan garisan kotak luar */
       padding: 20px 25px 35px 25px;
       border: 1px solid #000;
       max-width: 800px;
@@ -569,8 +578,9 @@
               <input type="text" id="settingAlamat" class="form-control form-control-sm" value="17070 PASIR MAS KELANTAN">
             </div>
             
+            <!-- Kemaskini: Butang Simpan Dikecilkan & Diselaraskan -->
             <div class="text-center mt-3">
-              <button class="btn-pill-blue w-100" onclick="saveSettings()">
+              <button class="btn-pill-blue btn-pill-compact" onclick="saveSettings()">
                 <i class="fas fa-save"></i> Simpan Tetapan
               </button>
             </div>
@@ -580,14 +590,15 @@
         <div class="card border-0 shadow-sm mb-3 border-danger">
           <div class="card-body p-3">
             <h6 class="fw-bold text-danger mb-2 fs-6"><i class="fas fa-database me-1"></i>Pengurusan Data Rekod</h6>
-            <p class="small text-muted mb-3">Urus atau padam rekod tuntutan tersimpan menggunakan nombor BIL.</p>
+            <p class="small text-muted mb-3 text-center">Urus atau padam rekod tuntutan tersimpan menggunakan nombor BIL.</p>
             
-            <div class="d-flex flex-column gap-2">
-              <button class="btn-pill-blue" onclick="promptEditByBil()">
+            <!-- Kemaskini: Butang Pengurusan Data Dikecilkan & Diselaraskan -->
+            <div class="d-flex flex-column gap-2 align-items-center">
+              <button class="btn-pill-blue btn-pill-compact" onclick="promptEditByBil()">
                 <i class="fas fa-edit"></i> Kemaskini Rekod Tuntutan
               </button>
 
-              <button class="btn-pill-blue" style="background-color: #9B2C2C; border-color: #C53030;" onclick="hapusSemuaData()">
+              <button class="btn-pill-blue btn-pill-compact" style="background-color: #9B2C2C; border-color: #C53030;" onclick="hapusSemuaData()">
                 <i class="fas fa-trash-alt"></i> Hapus Semua Rekod Tuntutan
               </button>
             </div>
@@ -926,7 +937,7 @@
     });
   }
 
-  // Render Cetak View
+  // Kemaskini: Render Cetak View (Nombor BIL Hanya Ditampilkan Bagi Data Yang Wujud)
   function renderPrintView() {
     const tbody = document.getElementById('printTableBody');
     tbody.innerHTML = '';
@@ -937,6 +948,7 @@
       const item = claimsData[i];
       const tr = document.createElement('tr');
       if (item) {
+        // Papar nombor Bil hanya jika ada data
         tr.innerHTML = `
           <td style="text-align: center;">${i + 1}</td>
           <td>${item.perkara}</td>
@@ -944,8 +956,9 @@
           <td style="text-align: center;">${formatDateDisplayShort(item.tarikh)}</td>
         `;
       } else {
+        // Biarkan kosong jika tiada data (tanpa angka Bil)
         tr.innerHTML = `
-          <td style="text-align: center;">${i + 1}</td>
+          <td></td>
           <td></td>
           <td></td>
           <td></td>
